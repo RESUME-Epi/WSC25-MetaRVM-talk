@@ -4,8 +4,10 @@ project:
 
 format:
   revealjs:
+    mathjax: true
     theme: simple
     css: theme/custom.css
+    auto-animate: true
     slide-number: true
     incremental: true
     toc: false
