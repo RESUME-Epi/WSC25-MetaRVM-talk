@@ -30,6 +30,12 @@ execute:
 
 ---
 
+## Follow along
+
+![](figures/qrcode.png){width=100%}
+
+---
+
 ## Roadmap
 
 - Motivation & collaboration context  
