@@ -1,0 +1,128 @@
+[
+  {
+    "objectID": "metarvm-wsc.html#people-involved",
+    "href": "metarvm-wsc.html#people-involved",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "People involved",
+    "text": "People involved"
+  },
+  {
+    "objectID": "metarvm-wsc.html#roadmap",
+    "href": "metarvm-wsc.html#roadmap",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Roadmap",
+    "text": "Roadmap\n\nMotivation & collaboration context\n\nMetaRVM modeling framework\n\nMetapopulation structure\n\nDisease progression model\n\nMixing matrices from a synthetic population\n\n\nImplementation as an R package\nTrajectory-oriented optimization\nCase study: influenza in Chicago"
+  },
+  {
+    "objectID": "metarvm-wsc.html#motivation",
+    "href": "metarvm-wsc.html#motivation",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Motivation",
+    "text": "Motivation\n\nPublic health decision makers increasingly rely on epidemiological models to:\n\nForecast likely futures\nStress-test interventions\nPlan resource allocation (e.g., beds, staffing)"
+  },
+  {
+    "objectID": "metarvm-wsc.html#motivation-1",
+    "href": "metarvm-wsc.html#motivation-1",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Motivation",
+    "text": "Motivation\n\n\nPopulation-based ODE model\n\nAggregate-level dynamics\n\nHomogeneous mixing assumptions\nComputationally light and fast\n\n\n\nAgent-based model\n\nIndividual-level interactions\n\nHeterogeneous contact network\nExpensive to run for large population"
+  },
+  {
+    "objectID": "metarvm-wsc.html#motivation-2",
+    "href": "metarvm-wsc.html#motivation-2",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Motivation",
+    "text": "Motivation\n\n\nPopulation-based ODE model\n\nAggregate-level dynamics\n\nHomogeneous mixing assumptions\n\n\n\nMetaRVM\n\nStratified metapopulation structure\n\nTime-varying mixing from synthetic contacts\n\n\n\nAgent-based model\n\nIndividual-level interactions\n\nHeterogeneous contact network"
+  },
+  {
+    "objectID": "metarvm-wsc.html#metarvm-1",
+    "href": "metarvm-wsc.html#metarvm-1",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "MetaRVM",
+    "text": "MetaRVM\n\nAn open-source R package for modeling infectious disease spread across stratified subpopulations.\nSubpopulations can be defined by:\n\nGeography (e.g., neighborhood, ZIP, zone)\nDemographics (e.g., age, race/ethnicity)\n\nFeatures:\n\nTime varying mixing pattern\nExtended SEIR-type disease progression\nCheckpointing functionality\nIntegration with Trajectory-Oriented Optimization workflows"
+  },
+  {
+    "objectID": "metarvm-wsc.html#model-structure-extended-seir",
+    "href": "metarvm-wsc.html#model-structure-extended-seir",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Model structure: extended SEIR",
+    "text": "Model structure: extended SEIR\nCore disease states (example):\n\nS – Susceptible\n\nE – Exposed (infected, not yet infectious)\n\nI – Infectious (possibly with severity subcompartments)\n\nH – Hospitalized\n\nR – Recovered / immune\n\nV – Vaccinated\n\nKey design choices:\n\nDiscrete-time simulation, typically daily time steps\nTransitions governed by:\n\nLatent and infectious periods\nAge- and stratum-specific risks\nVaccination efficacy and waning, if modeled\n\nOutputs:\n\nIncident infections, hospitalizations, etc.\nCumulative outcomes by stratum"
+  },
+  {
+    "objectID": "metarvm-wsc.html#force-of-infection-and-mixing",
+    "href": "metarvm-wsc.html#force-of-infection-and-mixing",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Force of infection and mixing",
+    "text": "Force of infection and mixing\n\nFor each stratum, the force of infection depends on:\n\nContact rates between strata\nPrevalence of infectious individuals in each stratum\n\nLet:\n\nβ(t) be a time-varying transmission parameter\nM(t) be a mixing matrix (strata × strata) at time t\nI(t) the vector of infectious counts by stratum\n\nConceptually:\n\nInfection pressure in stratum k combines:\n\nIts own infectious individuals\nContacts with infectious individuals in other strata\n\nWith separate terms for susceptible vs. vaccinated if modeled\n\n\n\nImplementation uses efficiently stored and processed mixing matrices derived from a synthetic population."
+  },
+  {
+    "objectID": "metarvm-wsc.html#building-mixing-matrices-from-a-synthetic-population",
+    "href": "metarvm-wsc.html#building-mixing-matrices-from-a-synthetic-population",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Building mixing matrices from a synthetic population",
+    "text": "Building mixing matrices from a synthetic population\n\nUnderlying asset: synthetic population for Chicago\n\nStatistically representative of residents and households\nIncludes:\n\nDemographics (age, etc.)\nHome, work, school, and activity locations\nDaily schedules / contact opportunities\n\n\nFrom this, we construct empirical mixing matrices:\n\nCount cross-stratum contacts in:\n\nHouseholds\nSchools\nWorkplaces\nOther locations\n\nAggregate to daily or weekly matrices\nSeparate weekday / weekend patterns\n\n\n\nThis leverages the richness of CityCOVID’s synthetic ecosystem, but in a metapopulation abstraction."
+  },
+  {
+    "objectID": "metarvm-wsc.html#example-weekday-vs-weekend-mixing",
+    "href": "metarvm-wsc.html#example-weekday-vs-weekend-mixing",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Example: weekday vs weekend mixing",
+    "text": "Example: weekday vs weekend mixing\n\nWeekday:\n\nStrong school-based mixing among children\nWorkplace mixing among working-age adults\nCross-age mixing in households in mornings and evenings\n\nWeekend:\n\nLess structured mixing\nMore household and community mixing\n\nMetaRVM:\n\nCan use separate mixing matrices for:\n\nWeekdays vs weekends\nDifferent phases of the season\nIntervention periods (e.g., school closures)"
+  },
+  {
+    "objectID": "metarvm-wsc.html#workflow-from-data-to-decision",
+    "href": "metarvm-wsc.html#workflow-from-data-to-decision",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Workflow: from data to decision",
+    "text": "Workflow: from data to decision\n\nDefine stratification\n\ne.g., age × neighborhood, or age × race\n\nPrepare inputs\n\nPopulation counts by stratum\nDaily or weekly mixing matrices\nVaccination and other intervention schedules\n\nConfigure MetaRVM\n\nStructural and epidemiological parameters\nSimulation horizon and time step\n\nCalibrate to observed data\n\nHospitalizations, case counts, etc.\nUse Bayesian optimization / calibration tools\n\nRun scenarios\n\nAlternative vaccination strategies\nTiming and intensity of NPIs\n\nSummarize and communicate\n\nVisualizations\nKey metrics for decision makers"
+  },
+  {
+    "objectID": "metarvm-wsc.html#case-study-influenza-hospitalizations-in-chicago-202324",
+    "href": "metarvm-wsc.html#case-study-influenza-hospitalizations-in-chicago-202324",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Case study: influenza hospitalizations in Chicago (2023–24)",
+    "text": "Case study: influenza hospitalizations in Chicago (2023–24)\n\nObjective:\n\nSupport prospective surveillance of influenza-related hospitalizations in Chicago\n\nSetup:\n\nStrata: age groups (e.g., children, adults, seniors)\nObserved data:\n\nDaily or weekly influenza-related hospitalizations\n\nInputs:\n\nSynthetic population-based mixing\nEmpirical vaccination curves over the season\n\n\nTasks:\n\nCalibrate MetaRVM to observed hospitalizations\nGenerate short-term forecasts\nExplore alternative vaccination scenarios"
+  },
+  {
+    "objectID": "metarvm-wsc.html#calibration-overview",
+    "href": "metarvm-wsc.html#calibration-overview",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Calibration: overview",
+    "text": "Calibration: overview\n\nCalibration goal:\n\nAlign model-generated hospitalizations with observed time series\n\nApproach:\n\nChoose a set of calibration parameters (e.g., transmission scaling, reporting/observation fraction)\nDefine a loss function (e.g., squared error between modeled and observed hospitalizations)\nUse Bayesian optimization (or other search strategies) to:\n\nExplore parameter space efficiently\nBalance exploitation and exploration\n\n\nOutcome:\n\nPosterior-like distribution over plausible parameter values\nUncertainty envelopes around model trajectories"
+  },
+  {
+    "objectID": "metarvm-wsc.html#limitations-and-extensions",
+    "href": "metarvm-wsc.html#limitations-and-extensions",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Limitations and extensions",
+    "text": "Limitations and extensions\nLimitations:\n\nStill an aggregated model:\n\nDoes not capture individual-level heterogeneity beyond stratification\n\nDependent on:\n\nQuality of the synthetic population and mixing matrices\nQuality and timeliness of surveillance data\n\nCalibration challenges:\n\nParameter identifiability\nStructural uncertainty\n\n\nPossible extensions:\n\nCo-circulation of multiple pathogens (e.g., flu + RSV + COVID-19)\nMore nuanced interventions:\n\nLayered NPIs, dynamic behavior change\nTargeted vaccination by geography and risk\n\nDeeper integration with:\n\nHigh-performance computing resources\nAutomated data ingestion pipelines"
+  },
+  {
+    "objectID": "metarvm-wsc.html#summary",
+    "href": "metarvm-wsc.html#summary",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Summary",
+    "text": "Summary\n\nMetaRVM provides a use-inspired metapopulation modeling framework for:\n\nDetailed, stratified tracking of health outcomes\nInfectious disease spread across multiple interacting subpopulations\n\nKey contributions:\n\nUses synthetic population-derived mixing matrices\nBalances realism with computational efficiency\nDelivered as an open-source R package with a Shiny front end\n\nCase study:\n\nDemonstrated on influenza-related hospitalizations in Chicago\nSupports prospective surveillance and scenario analysis"
+  },
+  {
+    "objectID": "metarvm-wsc.html#looking-ahead",
+    "href": "metarvm-wsc.html#looking-ahead",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Looking ahead",
+    "text": "Looking ahead\n\nResearch directions:\n\nMulti-pathogen modeling\nEnhanced calibration and uncertainty quantification\nIntegration of behavioral and policy feedbacks\n\nDeployment directions:\n\nBroader adoption at other health departments\nSharing of configuration templates and best practices\nTraining materials for non-modeling stakeholders"
+  },
+  {
+    "objectID": "metarvm-wsc.html#acknowledgments",
+    "href": "metarvm-wsc.html#acknowledgments",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Acknowledgments",
+    "text": "Acknowledgments\n\nChicago Department of Public Health\n\nCollaborators at Argonne National Laboratory and University of Chicago\n\nFunding and institutional support as detailed in the paper"
+  },
+  {
+    "objectID": "metarvm-wsc.html#questions",
+    "href": "metarvm-wsc.html#questions",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Questions?",
+    "text": "Questions?\nThank you!"
+  }
+]

@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&display=swap');
+
+/* ---------------------------
+   CUSTOM REVEALJS THEME START
+---------------------------- */
+
+/* .reveal .quarto-title-block * {
+  outline: 1px dashed red;
+} */
+
+.reveal {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Helvetica, Arial, sans-serif !important;
+}
+/* ---------------------------
+   TITLE SLIDE CUSTOMIZATION
+---------------------------- */
+
+.reveal #title-slide .title {
+  display: inline-block;                /* shrink-wrap to title text */
+  padding: 0.4em 0.8em;                 /* spacing inside the box */
+  
+  background: rgba(99, 171, 197, 0.1); /* light teal tint */
+  border: 2px solid rgba(26, 111, 143, 0.25);
+  border-radius: 8px;
+
+}
+
+/* Title: smaller + colored */
+.reveal #title-slide .title {
+  font-size: 1.8em !important;     /* smaller than default */
+  color: #1a6f8f !important;
+  margin-bottom: 1em;
+  font-weight: 500;
+}
+
+/* Author name: larger + colored */
+.reveal #title-slide .quarto-title-author-name {
+  font-size: 1.15em !important;
+  color: #082b37ff !important;
+  font-weight: 500;
+  margin-bottom: 0.5em;
+}
+
+/* Affiliation / institute: slightly smaller + different color */
+.reveal #title-slide .quarto-title-affiliation {
+  font-size: 1.05em !important;
+  color: #d08011ff !important;
+  font-weight: 500;
+  margin-top: 0.5em;
+}
+
+/* Change slide title color */
+.reveal h1,
+.reveal h2 {
+  color: #1a6f8f !important;   /* choose your preferred color */
+  font-weight: 500;
+}
+
+
+/* Slightly larger title spacing */
+.reveal h1,
+.reveal h2 {
+  margin-bottom: 0.4em;
+}
+
+/* Optional: adjust background for title slides */
+section[data-state="title-slide"] h1 {
+  color: #0e3d4d !important;
+}
+
+/* MetaRVM */
+
+.metarvm {
+  color: #aa0581ff !important;
+  font-weight: 500 !important;
+}
+
+/* ============================================================
+   BULLET STYLING FOR REVEALJS (Quarto)
+   ------------------------------------
+   • First-level bullets: hollow square □
+   • Second-level bullets: en-dash –
+   ============================================================ */
+
+/* Remove default bullets everywhere */
+.reveal ul {
+  list-style: none !important;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+/* -------------------------------
+   FIRST-LEVEL BULLETS: HOLLOW □
+   (any li directly under a ul)
+-------------------------------- */
+.reveal ul > li {
+  position: relative;
+  margin-bottom: 0.35em;
+  padding-left: 1.4em;        /* space between square and text */
+}
+
+/* hollow square */
+.reveal ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+
+  width: 0.45em;
+  height: 0.45em;
+
+  background: transparent;
+  border: 2px solid #1a6f8f;  /* accent color */
+  border-radius: 2px;
+}
+
+/* -------------------------------
+   SECOND-LEVEL BULLETS: DASH –
+   (li whose parent ul is nested in another ul)
+-------------------------------- */
+.reveal ul ul {
+  margin-top: 0.25em;
+  padding-left: 1.6em;        /* indent nested list as a group */
+}
+
+.reveal ul ul > li {
+  padding-left: 1.1em;        /* small indent inside nested li */
+}
+
+/* dash bullet overrides square */
+.reveal ul ul > li::before {
+  content: "–";               /* dash */
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+
+  color: #1a6f8f;
+  font-weight: 600;
+  font-size: 1.1em;
+
+  /* kill the square styling */
+  background: none !important;
+  border: none !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Center images inside column layouts */
+.reveal .column img {
+  display: block;
+  margin: 0 auto;
+}
+
+/* 3-column layout: narrow–wide–narrow */
+.reveal .columns.three-panel {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.reveal .columns.three-panel > .column:nth-child(1),
+.reveal .columns.three-panel > .column:nth-child(3) {
+  flex: 0 0 33%;     /* ODE and ABM columns */
+}
+
+.reveal .columns.three-panel > .column:nth-child(2) {
+  flex: 0 0 34%;     /* MetaRVM column */
+}
+
+
+.reveal .column h1,
+.reveal .column h2,
+.reveal .column h3,
+.reveal .column h4,
+.reveal .column h5 {
+  text-align: center;
+}
+
+.reveal h1, .reveal h2, .reveal h3 .reveal h4{
+  font-family: "Lato", sans-serif !important;
+}
+
+.reveal .column img {
+  max-width: none !important;
+}
+
+/* Highlight box for a column */
+.reveal .highlight-box {
+  border: 3px solid #1a6f8f;        /* MetaRVM accent color */
+  background: rgba(26, 111, 143, 0.08);
+  border-radius: 14px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Keep bullets aligned correctly inside the box */
+.reveal .highlight-box ul {
+  padding-left: 1.2em !important;
+}

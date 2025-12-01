@@ -1,0 +1,15 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+
+# Quarto cache
+*_cache/
+.quarto/
+
+# RStudio project file (if you use it)
+*.Rproj
+/.quarto/
+
+/.luarc.json

@@ -1,0 +1,336 @@
+---
+title: "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes"
+subtitle: "Winter Simulation Conference, 2025"
+author: "Presenter: Arindam Fadikar"
+affiliation: "Decision and Infrastructure Sciences"
+institute: "Argonne National Laboratory"
+date: "December 8, 2025"
+conference: "Winter Simulation Conference 2025"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    incremental: false
+    smaller: true
+    toc: false
+    code-fold: false
+    code-overflow: scroll
+    self-contained: true
+    progress: true
+    transition: fade
+    navigation-mode: vertical
+execute:
+  echo: false
+  warning: false
+  message: false
+  cache: false
+---
+
+## People involved
+
+---
+
+## Roadmap
+
+- Motivation & collaboration context  
+- MetaRVM modeling framework  
+  - Metapopulation structure  
+  - Disease progression model  
+  - Mixing matrices from a synthetic population  
+- Implementation as an **R package**
+- Trajectory-oriented optimization 
+- Case study: influenza in Chicago  
+
+
+---
+
+## Motivation
+
+- Public health decision makers increasingly rely on **epidemiological models** to:
+  - Forecast likely futures
+  - Stress-test interventions
+  - Plan resource allocation (e.g., beds, staffing)
+
+---
+
+## Motivation 
+
+::: columns
+
+::: {.column #ode-panel}
+#### **Population-based ODE model**
+
+- Aggregate-level dynamics  
+- Homogeneous mixing assumptions 
+- Computationally light and fast
+
+![](figures/ode-model.png){width=60%}
+:::
+
+::: {.column #abm-panel}
+#### **Agent-based model**
+
+- Individual-level interactions  
+- Heterogeneous contact network 
+- Expensive to run for large population 
+
+![](figures/abm-model.png){width=60%}
+:::
+
+:::
+
+---
+
+## Motivation {data-auto-animate="true" }
+
+::: {.columns .three-panel}
+
+::: {.column #ode-panel}
+#### Population-based ODE model
+- Aggregate-level dynamics  
+- Homogeneous mixing assumptions
+
+![](figures/ode-model.png){width=60%}
+:::
+
+::: {.column #metarvm-panel}
+#### MetaRVM
+
+- Stratified metapopulation structure  
+- Time-varying mixing from synthetic contacts  
+
+![](figures/meta-model.png){width=120%}
+:::
+
+::: {.column #abm-panel}
+#### Agent-based model
+- Individual-level interactions  
+- Heterogeneous contact network 
+
+![](figures/abm-model.png){width=60%}
+:::
+
+:::
+
+---
+
+## MetaRVM 
+
+- An open-source **R package** for modeling infectious disease spread across **stratified subpopulations**.
+- Subpopulations can be defined by:
+  - Geography (e.g., neighborhood, ZIP, zone)
+  - Demographics (e.g., age, race/ethnicity)
+- Features:
+  - Time varying mixing pattern
+  - Extended SEIR-type disease progression
+  - Checkpointing functionality
+  - Integration with Trajectory-Oriented Optimization workflows
+
+---
+
+## Model structure: extended SEIR
+
+Core disease states (example):
+
+- **S** – Susceptible  
+- **E** – Exposed (infected, not yet infectious)  
+- **I** – Infectious (possibly with severity subcompartments)  
+- **H** – Hospitalized  
+- **R** – Recovered / immune  
+- **V** – Vaccinated
+
+Key design choices:
+
+- Discrete-time simulation, typically daily time steps
+- Transitions governed by:
+  - Latent and infectious periods
+  - Age- and stratum-specific risks
+  - Vaccination efficacy and waning, if modeled
+- Outputs:
+  - Incident infections, hospitalizations, etc.
+  - Cumulative outcomes by stratum
+
+---
+
+## Force of infection and mixing
+
+- For each stratum, the **force of infection** depends on:
+  - Contact rates between strata
+  - Prevalence of infectious individuals in each stratum
+- Let:
+  - β(t) be a time-varying transmission parameter
+  - M(t) be a mixing matrix (strata × strata) at time t
+  - I(t) the vector of infectious counts by stratum
+- Conceptually:
+  - Infection pressure in stratum _k_ combines:
+    - Its own infectious individuals
+    - Contacts with infectious individuals in other strata
+  - With separate terms for susceptible vs. vaccinated if modeled
+
+> Implementation uses efficiently stored and processed mixing matrices derived from a synthetic population.
+
+---
+
+## Building mixing matrices from a synthetic population
+
+- Underlying asset: **synthetic population** for Chicago
+  - Statistically representative of residents and households
+  - Includes:
+    - Demographics (age, etc.)
+    - Home, work, school, and activity locations
+    - Daily schedules / contact opportunities
+- From this, we construct **empirical mixing matrices**:
+  - Count cross-stratum contacts in:
+    - Households
+    - Schools
+    - Workplaces
+    - Other locations
+  - Aggregate to daily or weekly matrices
+  - Separate weekday / weekend patterns
+
+> This leverages the richness of CityCOVID’s synthetic ecosystem, but in a metapopulation abstraction.
+
+---
+
+## Example: weekday vs weekend mixing
+
+- Weekday:
+  - Strong school-based mixing among children
+  - Workplace mixing among working-age adults
+  - Cross-age mixing in households in mornings and evenings
+- Weekend:
+  - Less structured mixing
+  - More household and community mixing
+- MetaRVM:
+  - Can use separate mixing matrices for:
+    - Weekdays vs weekends
+    - Different phases of the season
+    - Intervention periods (e.g., school closures)
+
+---
+
+
+## Workflow: from data to decision
+
+1. **Define stratification**
+   - e.g., age × neighborhood, or age × race
+2. **Prepare inputs**
+   - Population counts by stratum
+   - Daily or weekly mixing matrices
+   - Vaccination and other intervention schedules
+3. **Configure MetaRVM**
+   - Structural and epidemiological parameters
+   - Simulation horizon and time step
+4. **Calibrate to observed data**
+   - Hospitalizations, case counts, etc.
+   - Use Bayesian optimization / calibration tools
+5. **Run scenarios**
+   - Alternative vaccination strategies
+   - Timing and intensity of NPIs
+6. **Summarize and communicate**
+   - Visualizations
+   - Key metrics for decision makers
+
+---
+
+## Case study: influenza hospitalizations in Chicago (2023–24)
+
+- Objective:
+  - Support **prospective surveillance** of influenza-related hospitalizations in Chicago
+- Setup:
+  - Strata: age groups (e.g., children, adults, seniors)
+  - Observed data:
+    - Daily or weekly influenza-related hospitalizations
+  - Inputs:
+    - Synthetic population-based mixing
+    - Empirical vaccination curves over the season
+- Tasks:
+  - Calibrate MetaRVM to observed hospitalizations
+  - Generate short-term forecasts
+  - Explore alternative vaccination scenarios
+
+---
+
+
+## Calibration: overview
+
+- Calibration goal:
+  - Align model-generated hospitalizations with observed time series
+- Approach:
+  - Choose a set of calibration parameters (e.g., transmission scaling, reporting/observation fraction)
+  - Define a loss function (e.g., squared error between modeled and observed hospitalizations)
+  - Use **Bayesian optimization** (or other search strategies) to:
+    - Explore parameter space efficiently
+    - Balance exploitation and exploration
+- Outcome:
+  - Posterior-like distribution over plausible parameter values
+  - Uncertainty envelopes around model trajectories
+
+---
+
+
+## Limitations and extensions
+
+Limitations:
+
+- Still an aggregated model:
+  - Does not capture individual-level heterogeneity beyond stratification
+- Dependent on:
+  - Quality of the synthetic population and mixing matrices
+  - Quality and timeliness of surveillance data
+- Calibration challenges:
+  - Parameter identifiability
+  - Structural uncertainty
+
+Possible extensions:
+
+- Co-circulation of multiple pathogens (e.g., flu + RSV + COVID-19)
+- More nuanced interventions:
+  - Layered NPIs, dynamic behavior change
+  - Targeted vaccination by geography and risk
+- Deeper integration with:
+  - High-performance computing resources
+  - Automated data ingestion pipelines
+
+---
+
+## Summary
+
+- MetaRVM provides a **use-inspired metapopulation modeling framework** for:
+  - Detailed, stratified tracking of health outcomes
+  - Infectious disease spread across multiple interacting subpopulations
+- Key contributions:
+  - Uses synthetic population-derived mixing matrices
+  - Balances realism with computational efficiency
+  - Delivered as an **open-source R package** with a **Shiny front end**
+- Case study:
+  - Demonstrated on influenza-related hospitalizations in Chicago
+  - Supports prospective surveillance and scenario analysis
+
+---
+
+## Looking ahead
+
+- Research directions:
+  - Multi-pathogen modeling
+  - Enhanced calibration and uncertainty quantification
+  - Integration of behavioral and policy feedbacks
+- Deployment directions:
+  - Broader adoption at other health departments
+  - Sharing of configuration templates and best practices
+  - Training materials for non-modeling stakeholders
+
+---
+
+
+## Acknowledgments
+
+- Chicago Department of Public Health  
+- Collaborators at Argonne National Laboratory and University of Chicago  
+- Funding and institutional support as detailed in the paper  
+
+---
+
+## Questions?
+
+*Thank you!*

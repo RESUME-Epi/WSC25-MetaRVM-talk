@@ -1,0 +1,26 @@
+project:
+  type: website      # or "default", but "website" makes Pages hosting nicer
+  output-dir: docs   # GitHub Pages will serve from /docs
+
+format:
+  revealjs:
+    theme: simple
+    css: theme/custom.css
+    slide-number: true
+    incremental: true
+    toc: false
+    code-fold: false
+    code-overflow: scroll
+    self-contained: false
+    progress: true
+    transition: fade
+    navigation-mode: vertical
+filters:
+  - filters/highlight-metarvm.lua
+
+website:
+  title: "MetaRVM – WSC 2025"
+  navbar:
+    left:
+      - text: "Slides"
+        href: metarvm-wsc.html
