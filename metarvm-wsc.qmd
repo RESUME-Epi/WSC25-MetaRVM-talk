@@ -28,11 +28,55 @@ execute:
 
 ## People involved
 
+::: columns
+
+::: {.column #argonne}
+
+![](figures/ANL_RGB-01.png){width=50%}
+
+- Arindam Fadikar  
+- Abby Stevens
+- Sara Rimer
+- Ignacio Martinez-Moyano
+- Nicholson Colllier
+- Jonathan Ozik
+- Charles Macal
+
+:::
+
+::: {.column #cdph}
+
+![](figures/CDPH-Logo.png){width=50%}
+
+- Chol Mabil
+- Emile Jorgensen
+- Peter Ruestow
+- V. Eloesa McSorley
+:::
+
+:::
+
 ---
 
 ## Follow along
 
+::: columns
+
+::: {.column}
+
 ![](figures/qrcode.png){width=100%}
+
+:::
+
+::: {.column}
+
+<https://resume-epi.github.io/WSC25-MetaRVM-talk/>
+:::
+
+:::
+
+
+
 
 ---
 
@@ -284,19 +328,18 @@ $$
 ---
 
 
-## TOO: overview
+## MetaRVM in action
 
-- Calibration goal:
-  - Align model-generated hospitalizations with observed time series
-- Approach:
-  - Choose a set of calibration parameters (e.g., transmission scaling, reporting/observation fraction)
-  - Define a loss function (e.g., squared error between modeled and observed hospitalizations)
-  - Use **Bayesian optimization** to:
-    - Explore parameter space efficiently
-    - Balance exploitation and exploration
-- Outcome:
-  - Posterior-like distribution over plausible parameter values
-  - Uncertainty envelopes around model trajectories
+### Track influenza hospitalizations by age-groups
+
+- **Goal**:
+  - Calibrate MetaRVM, i.e., estimate parameters to match age-stratified hospitalizations.
+- **Approach**:
+  - Select the calibration parameters
+    - age-stratified $\beta_s$, $\beta_v$, $pea$, $psh$.
+  - Apply ***Trajectory Oriented Optimization*** to find relevant trajectories matching observations.
+    - <https://doi.org/10.1109/WSC60868.2023.10408258>
+  - Time-varying parameters
 
 ---
 

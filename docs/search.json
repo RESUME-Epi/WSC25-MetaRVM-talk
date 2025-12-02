@@ -4,14 +4,14 @@
     "href": "metarvm-wsc.html#people-involved",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "People involved",
-    "text": "People involved"
+    "text": "People involved\n\n\n\n\nArindam Fadikar\n\nAbby Stevens\nSara Rimer\nIgnacio Martinez-Moyano\nNicholson Colllier\nJonathan Ozik\nCharles Macal\n\n\n\n\nChol Mabil\nEmile Jorgensen\nPeter Ruestow\nV. Eloesa McSorley"
   },
   {
     "objectID": "metarvm-wsc.html#follow-along",
     "href": "metarvm-wsc.html#follow-along",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Follow along",
-    "text": "Follow along"
+    "text": "Follow along\n\n\n\n\nhttps://resume-epi.github.io/WSC25-MetaRVM-talk/"
   },
   {
     "objectID": "metarvm-wsc.html#roadmap",
@@ -119,11 +119,11 @@
     "text": "Vaccination"
   },
   {
-    "objectID": "metarvm-wsc.html#too-overview",
-    "href": "metarvm-wsc.html#too-overview",
+    "objectID": "metarvm-wsc.html#metarvm-in-action",
+    "href": "metarvm-wsc.html#metarvm-in-action",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
-    "section": "TOO: overview",
-    "text": "TOO: overview\n\nCalibration goal:\n\nAlign model-generated hospitalizations with observed time series\n\nApproach:\n\nChoose a set of calibration parameters (e.g., transmission scaling, reporting/observation fraction)\nDefine a loss function (e.g., squared error between modeled and observed hospitalizations)\nUse Bayesian optimization to:\n\nExplore parameter space efficiently\nBalance exploitation and exploration\n\n\nOutcome:\n\nPosterior-like distribution over plausible parameter values\nUncertainty envelopes around model trajectories"
+    "section": "MetaRVM in action",
+    "text": "MetaRVM in action\nTrack influenza hospitalizations by age-groups\n\nGoal:\n\nCalibrate MetaRVM, i.e., estimate parameters to match age-stratified hospitalizations.\n\nApproach:\n\nSelect the calibration parameters\n\nage-stratified \\(\\beta_s\\), \\(\\beta_v\\), \\(pea\\), \\(psh\\).\n\nApply Trajectory Oriented Optimization to find relevant trajectories matching observations.\n\nhttps://doi.org/10.1109/WSC60868.2023.10408258\n\nTime-varying parameters"
   },
   {
     "objectID": "metarvm-wsc.html#results",
