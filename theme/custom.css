@@ -111,7 +111,7 @@ section[data-state="title-slide"] h1 {
   height: 0.45em;
 
   background: transparent;
-  border: 2px solid #1a6f8f;  /* accent color */
+  border: 3px solid #20adeeff;  /* accent color */
   border-radius: 2px;
 }
 
@@ -146,6 +146,11 @@ section[data-state="title-slide"] h1 {
   height: auto !important;
 }
 
+/* Reduce indentation slightly (optional) */
+.reveal ul ul {
+  padding-left: 0.2em !important;  /* default is ~1.5em */
+}
+
 /* Center images inside column layouts */
 .reveal .column img {
   display: block;
@@ -165,6 +170,33 @@ section[data-state="title-slide"] h1 {
 
 .reveal .columns.three-panel > .column:nth-child(2) {
   flex: 0 0 34%;     /* MetaRVM column */
+}
+
+
+/* 2-column layout: wide–narrow */
+.reveal .columns.two-wide-narrow-panel {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.reveal .columns.two-wide-narrow-panel > .column:nth-child(1) {
+  flex: 0 0 60%;     /* ODE and ABM columns */
+}
+
+.reveal .columns.two-wide-narrow-panel > .column:nth-child(2) {
+  flex: 0 0 40%;     /* MetaRVM column */
+}
+
+/* 3-column layout: equal */
+.reveal .columns.three-equal-panel {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.reveal .columns.three-equal-panel > .column:nth-child(1),
+.reveal .columns.three-equal-panel > .column:nth-child(2),
+.reveal .columns.three-equal-panel > .column:nth-child(3) {
+  flex: 0 0 33.33%;     /* ODE and ABM columns */
 }
 
 
@@ -210,4 +242,45 @@ section[data-state="title-slide"] h1 {
 /* Center all content inside columns for this slide */
 #argonne, #cdph {
   text-align: center;
+}
+
+/* Base: make columns transform nicely */
+.reveal .three-panel .column {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform-origin: center center;
+}
+
+/* ODE and ABM: always dimmed and slightly smaller */
+.reveal #ode-panel-dim,
+.reveal #abm-panel-dim {
+  opacity: 0.35;
+  transform: scale(0.95);
+}
+
+/* MetaRVM: always highlighted and slightly zoomed */
+.reveal #metarvm-panel {
+  opacity: 1;
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+/* Base state: all columns are visible but dimmed & slightly shrunk */
+.reveal .fragment.zoom-step {
+  opacity: 0.35 !important;           /* dim at start */
+  transform: scale(0.95) !important;  /* slightly smaller */
+  transform-origin: center center;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Any fragment that has been shown but is not current = dimmed */
+.reveal .fragment.zoom-step.visible {
+  opacity: 0.35 !important;
+  transform: scale(0.95) !important;
+}
+
+/* The currently active fragment = fully opaque & zoomed */
+.reveal .fragment.zoom-step.current-fragment {
+  opacity: 1 !important;
+  transform: scale(1.05) !important;  /* adjust zoom as needed */
+  z-index: 2;
 }

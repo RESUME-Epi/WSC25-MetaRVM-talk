@@ -7,18 +7,11 @@
     "text": "People involved\n\n\n\n\nArindam Fadikar\n\nAbby Stevens\nSara Rimer\nIgnacio Martinez-Moyano\nNicholson Colllier\nJonathan Ozik\nCharles Macal\n\n\n\n\nChol Mabil\nEmile Jorgensen\nPeter Ruestow\nV. Eloesa McSorley"
   },
   {
-    "objectID": "metarvm-wsc.html#follow-along",
-    "href": "metarvm-wsc.html#follow-along",
-    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
-    "section": "Follow along",
-    "text": "Follow along\n\n\n\n\nhttps://resume-epi.github.io/WSC25-MetaRVM-talk/"
-  },
-  {
     "objectID": "metarvm-wsc.html#roadmap",
     "href": "metarvm-wsc.html#roadmap",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Roadmap",
-    "text": "Roadmap\n\nMotivation & collaboration context\n\nMetaRVM modeling framework\n\nMetapopulation structure\n\nDisease progression model\n\nMixing matrices from a synthetic population\n\n\nImplementation as an R package\nTrajectory-oriented optimization\nCase study: influenza in Chicago"
+    "text": "Roadmap\n\n\n\nMotivation & collaboration context\n\nMetaRVM modeling framework\n\nMetapopulation structure\n\nDisease progression model\n\nMixing matrices from a synthetic population\n\n\nImplementation as an R package\nTrajectory-oriented optimization\nCase study: influenza in Chicago\n\n\n https://tinyurl.com/wsc-metarvm"
   },
   {
     "objectID": "metarvm-wsc.html#motivation",
@@ -39,14 +32,14 @@
     "href": "metarvm-wsc.html#motivation-2",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Motivation",
-    "text": "Motivation\n\n\nPopulation-based ODE model\n\nAggregate-level dynamics\n\nHomogeneous mixing assumptions\n\n\n\nMetaRVM\n\nStratified metapopulation structure\n\nTime-varying mixing from synthetic contacts\n\n\n\nAgent-based model\n\nIndividual-level interactions\n\nHeterogeneous contact network"
+    "text": "Motivation\n\n\nPopulation-based ODE model\n\nAggregate-level dynamics\n\nHomogeneous mixing assumptions\n\n\n\nMeta-population hybrid model\n\nMetaRVM\n\nStratified metapopulation structure\n\nTime-varying mixing between strata\n\n\n\nAgent-based model\n\nIndividual-level interactions\n\nHeterogeneous contact network"
   },
   {
     "objectID": "metarvm-wsc.html#metarvm-1",
     "href": "metarvm-wsc.html#metarvm-1",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "MetaRVM",
-    "text": "MetaRVM\n\nAn open-source R package for modeling infectious disease spread across stratified subpopulations.\nSubpopulations can be defined by:\n\nGeography (e.g., neighborhood, ZIP, zone)\nDemographics (e.g., age, race/ethnicity)\n\nFeatures:\n\nTime varying mixing pattern (weekday vs weekend, day vs night)\nExtended SEIR-type disease progression\nCheckpointing functionality\nIntegration with Trajectory-Oriented Optimization workflows"
+    "text": "MetaRVM\n\n\n\nAn open-source R package for modeling infectious disease spread across stratified subpopulations.\nSubpopulations can be defined by:\n\nGeography (e.g., neighborhood, ZIP, zone)\nDemographics (e.g., age, race/ethnicity)\n\nFeatures:\n\nTime varying mixing pattern (weekday vs weekend, day vs night)\nExtended SEIR-type disease progression\nCheckpointing/restart functionality"
   },
   {
     "objectID": "metarvm-wsc.html#metarvm---disease-model",
@@ -60,49 +53,49 @@
     "href": "metarvm-wsc.html#metarvm---population-mixing",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "MetaRVM - Population mixing",
-    "text": "MetaRVM - Population mixing\n\n\nSubpopulations based on age: children (green boxes), working-age adults (blue boxes), and seniors (orange boxes).\nDifferent mixing patterns for daytime and nighttime."
+    "text": "MetaRVM - Population mixing\n\n\nAllows for subpopulations based on demographic characteristics, e.g., based on age: children (green boxes), working-age adults (blue boxes), and seniors (orange boxes)\nAllows for different mixing patterns for daytime and nighttime: obtained through social mixing studies or through synthetic population schedules"
   },
   {
     "objectID": "metarvm-wsc.html#mixing-and-force-of-infection",
     "href": "metarvm-wsc.html#mixing-and-force-of-infection",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Mixing and force of infection",
-    "text": "Mixing and force of infection\n\n\nFor each stratum, the force of infection depends on:\n\nMixing rates between strata \\(M = (m_{ij})\\)\nPrevalence of infectious individuals in \\(j\\)th stratum \\(I_t^{(j)}\\)"
+    "text": "Mixing and force of infection\n\n\nFor each stratum, the force of infection depends on:\n\nMixing rates between the strata \\(M = (m_{ij})\\)\nPrevalence of infectious individuals in \\(j\\)th stratum at time \\(t\\), \\(I_t^{(j)}\\), where \\(j \\in \\mathcal{J}\\)"
   },
   {
     "objectID": "metarvm-wsc.html#mixing-and-force-of-infection-1",
     "href": "metarvm-wsc.html#mixing-and-force-of-infection-1",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Mixing and force of infection",
-    "text": "Mixing and force of infection\n\nEffective interacting population (exclude H, D)\n\n\\[\n\\mathrm{MP}_t^{(j)} = P_t^{(j)} - H_t^{(j)} - D_t^{(j)}, \\qquad j \\in \\mathcal{J}.\n\\]\n\nMixing across demographic strata\n\n\\(M\\): mixing matrix \\[\nM = (m_{ij}), \\qquad \\sum_{j \\in \\mathcal{J}} m_{ij} = 1 \\ \\forall i,\n\\]\n\\[\n\\mathrm{MP}_{t,\\text{eff}}^{(j)} = \\sum_{i \\in \\mathcal{J}} m_{ij}\\,\\mathrm{MP}_t^{(i)}, \\quad\nS_{t,\\text{eff}}^{(j)} = \\sum_{i \\in \\mathcal{J}} m_{ij}\\,S_t^{(i)}, \\quad\nI_{t,\\text{eff}}^{(j)} = \\sum_{i \\in \\mathcal{J}} m_{ij}\\,I_t^{(i)}.\n\\]"
+    "text": "Mixing and force of infection\n\nEffective interacting population (exclude Hospitalized [H], Dead [D] from total Population [P])\n\n\\[\n\\mathrm{MP}_t^{(j)} = P_t^{(j)} - H_t^{(j)} - D_t^{(j)}, \\qquad j \\in \\mathcal{J}.\n\\]\n\nMixing across demographic strata\n\n\\(M\\): mixing matrix \\[\nM = (m_{ij}), \\qquad \\sum_{j \\in \\mathcal{J}} m_{ij} = 1 \\ \\forall i,\n\\]\n\\[\n\\mathrm{MP}_{t,\\text{eff}}^{(j)} = \\sum_{i \\in \\mathcal{J}} m_{ij}\\,\\mathrm{MP}_t^{(i)}, \\quad\nS_{t,\\text{eff}}^{(j)} = \\sum_{i \\in \\mathcal{J}} m_{ij}\\,S_t^{(i)}, \\quad\nI_{t,\\text{eff}}^{(j)} = \\sum_{i \\in \\mathcal{J}} m_{ij}\\,I_t^{(i)}.\n\\]"
   },
   {
     "objectID": "metarvm-wsc.html#mixing-and-force-of-infection-2",
     "href": "metarvm-wsc.html#mixing-and-force-of-infection-2",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Mixing and force of infection",
-    "text": "Mixing and force of infection\n\nForce of infection (susceptible vs vaccinated)\n\n\\[\n\\lambda_{s,t}^{(j)} = \\beta_s \\frac{I_{t,\\text{eff}}^{(j)}}{\\mathrm{MP}_{t,\\text{eff}}^{(j)}},\n\\qquad\n\\lambda_{v,t}^{(j)} = \\beta_v \\frac{I_{t,\\text{eff}}^{(j)}}{\\mathrm{MP}_{t,\\text{eff}}^{(j)}}.\n\\]\n\nS → E transition in stratum (j)\n\n\\[\np_{\\mathrm{SE}}^{(j)} = 1 - \\exp\\!\\big(-\\lambda_{s,t}^{(j)} \\,\\Delta t\\big),\n\\\\\n\\Delta SE_t^{(j)} = p_{\\mathrm{SE}}^{(j)}\\,S_t^{(j)}.\n\\]"
+    "text": "Mixing and force of infection\n\nForce of infection (Susceptible [S] vs Vaccinated [V])\n\n\\[\n\\lambda_{s,t}^{(j)} = \\beta_s \\frac{I_{t,\\text{eff}}^{(j)}}{\\mathrm{MP}_{t,\\text{eff}}^{(j)}},\n\\qquad\n\\lambda_{v,t}^{(j)} = \\beta_v \\frac{I_{t,\\text{eff}}^{(j)}}{\\mathrm{MP}_{t,\\text{eff}}^{(j)}}.\n\\]\n\nS → Exposed [E] transition in stratum (j)\n\n\\[\np_{\\mathrm{SE}}^{(j)} = 1 - \\exp\\!\\big(-\\lambda_{s,t}^{(j)} \\,\\Delta t\\big),\n\\\\\n\\Delta SE_t^{(j)} = p_{\\mathrm{SE}}^{(j)}\\,S_t^{(j)}.\n\\]"
   },
   {
     "objectID": "metarvm-wsc.html#age-stratified-model---illustration",
     "href": "metarvm-wsc.html#age-stratified-model---illustration",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Age-stratified model - illustration",
-    "text": "Age-stratified model - illustration\nWhat we need\n\nPopulation counts\n\nSource: Census\n\nDaily vaccination schedule\n\nSource: CDPH\n\nMixing matrices\n\nSource: ChiSIM synthetic population"
+    "text": "Age-stratified model - illustration\nIngredients\n\n\nPopulation initialization\n\nAge-groups: 0-17, 18-64, 65+\nInitial conditions\n\n\n\nVaccination\n\nDaily vaccination counts\n\n\n\nMixing matrices\n\nTime varying mixing"
   },
   {
     "objectID": "metarvm-wsc.html#age-stratified-model---illustration-1",
     "href": "metarvm-wsc.html#age-stratified-model---illustration-1",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Age-stratified model - illustration",
-    "text": "Age-stratified model - illustration\nSynthetic population\n\nStatistically representative synthetic population of Chicago\n(2.7M people, 1.4M places, 13k activity schedules)\nDemographically accurate households from ACS + PUMS at the CBG level\nWorkplaces generated from County Business Patterns + LEHD OD data\n(individuals assigned to realistic work locations)\nSchools assigned to all school-aged children\n(some adults assigned schools as workplaces)\nAdditional mixing locations (restaurants, gyms, etc.) from SafeGraph"
+    "text": "Age-stratified model - illustration\n\n\nSynthetic population\n\nStatistically representative synthetic population of Chicago\n(2.7M people, 1.4M places, 13k activity schedules)\nDemographically accurate households from ACS + PUMS at the CBG level\nWorkplaces generated from County Business Patterns + LEHD OD data\n(individuals assigned to realistic work locations)\nSchools assigned to all school-aged children\n(some adults assigned schools as workplaces)\nAdditional mixing locations (restaurants, gyms, etc.) from SafeGraph\n\n\nChiSim\n  Macal et al. (2018)"
   },
   {
     "objectID": "metarvm-wsc.html#age-stratified-model---illustration-2",
     "href": "metarvm-wsc.html#age-stratified-model---illustration-2",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Age-stratified model - illustration",
-    "text": "Age-stratified model - illustration\nMobility –&gt; Mixing\n\nAgent mobility from real schedules\n\nAdults: American Time Use Survey\nChildren: Panel Study of Income Dynamics\nEach agent draws 1 of 10 possible schedules daily (weekday/weekend)\n\nEndogenous contact network emerges from hour-by-hour co-location of agents\nAggregate\n\nCount the total number of contacts that occur at each location between and within subpopulations\nNormalize the counts to arrive at per-capita value"
+    "text": "Age-stratified model - illustration\nMobility –&gt; Mixing\n\n\n\nAgent mobility from real schedules\n\nAdults: American Time Use Survey\nChildren: Panel Study of Income Dynamics\nEach agent draws 1 of 10 possible schedules daily (weekday/weekend)\n\nEndogenous contact network emerges from hour-by-hour co-location of agents\nAggregate\n\nCount the total number of contacts that occur at each location between and within subpopulations\nNormalize the counts to arrive at per-capita value\n\n\n\nChiSim\n Macal et al. (2018)"
   },
   {
     "objectID": "metarvm-wsc.html#daytime-vs-nightime-mixing",
@@ -112,18 +105,25 @@
     "text": "Daytime vs Nightime mixing\n\n\nDaytime\n\nStrong location based mixing\n\n\n\nNighttime\n\nMore household and community mixing"
   },
   {
-    "objectID": "metarvm-wsc.html#vaccination",
-    "href": "metarvm-wsc.html#vaccination",
-    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
-    "section": "Vaccination",
-    "text": "Vaccination"
-  },
-  {
     "objectID": "metarvm-wsc.html#metarvm-in-action",
     "href": "metarvm-wsc.html#metarvm-in-action",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "MetaRVM in action",
-    "text": "MetaRVM in action\nTrack influenza hospitalizations by age-groups\n\nGoal:\n\nCalibrate MetaRVM, i.e., estimate parameters to match age-stratified hospitalizations.\n\nApproach:\n\nSelect the calibration parameters\n\nage-stratified \\(\\beta_s\\), \\(\\beta_v\\), \\(pea\\), \\(psh\\).\n\nApply Trajectory Oriented Optimization to find relevant trajectories matching observations.\n\nhttps://doi.org/10.1109/WSC60868.2023.10408258\n\nTime-varying parameters"
+    "text": "MetaRVM in action\nPrepare configuration\nrun_id: age-stratified\npopulation_data:\n  mapping: demographic_mapping.csv\n  initialization: population_init.csv\n  vaccination: vaccination.csv\nmixing_matrix:\n  weekday_day: m_wd_d.csv\n  weekday_night: m_wd_n.csv\n  weekend_day: m_we_d.csv\n  weekend_night: m_we_n.csv\ndisease_params:\n  ts: 0.5\n  tv: 0.3\n  ve : 0.5\n  dv: 158\n  dp: 1\n  de: 3\n  da: 5\n  ds: 6\n  dh: 4\n  dr: 187\n  pea: 0.333\n  psr: 0.95\n  phr: 0.97\nsub_disease_params:\n    age:\n      0-17:\n        ts: 0.5\n        tv: 0.1\n        pea: 0.1\n        psr: 0.99\n      18-64:\n        ts: 0.5\n        tv: 4\n        pea: 0.1\n        psr: 0.99\n      65+:\n        ts: 0.5\n        tv: 7\n        pea: 0.3\n        psr: 0.97\nsimulation_config:\n  start_date: 10/01/2023 # m/d/Y\n  length: 200"
+  },
+  {
+    "objectID": "metarvm-wsc.html#metarvm-in-action-1",
+    "href": "metarvm-wsc.html#metarvm-in-action-1",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "MetaRVM in action",
+    "text": "MetaRVM in action\nRun simulation\nlibrary(MetaRVM)\nout &lt;- metaRVM(\"config.yaml\")"
+  },
+  {
+    "objectID": "metarvm-wsc.html#metarvm-in-action-2",
+    "href": "metarvm-wsc.html#metarvm-in-action-2",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "MetaRVM in action",
+    "text": "MetaRVM in action\nTrack influenza hospitalizations by age-groups\n\nGoal:\n\nCalibrate MetaRVM, i.e., estimate parameters to match age-stratified hospitalizations.\n\nApproach:\n\nSelect the calibration parameters\nage-stratified \\(\\beta_s\\), \\(\\beta_v\\), \\(pea\\), \\(psh\\).\nApply Trajectory Oriented Optimization to find relevant trajectories matching observations.\nhttps://doi.org/10.1109/WSC60868.2023.10408258\nTime-varying parameters"
   },
   {
     "objectID": "metarvm-wsc.html#results",
@@ -140,6 +140,13 @@
     "text": "Summary\n\nMetaRVM provides a use-inspired metapopulation modeling framework for:\n\nDetailed, stratified tracking of health outcomes\nInfectious disease spread across multiple interacting subpopulations\n\nKey contributions:\n\nUses synthetic population-derived mixing matrices\nBalances realism with computational efficiency\nDelivered as an open-source R package with a Shiny front end\n\nCase study:\n\nDemonstrated on influenza-related hospitalizations in Chicago\nSupports prospective surveillance and scenario analysis"
   },
   {
+    "objectID": "metarvm-wsc.html#current-and-future-work",
+    "href": "metarvm-wsc.html#current-and-future-work",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Current and Future Work",
+    "text": "Current and Future Work\n\nExtend MetaRVM to other respiratory diseases of public health concern (COVID, RSV) and additional demographic characteristics (geographic, race/ethnicity)\nApply checkpoint-aware Bayesian optimization\nUtilize moving windows for improved trend detection\nExpand nowcasting capabilities to forecasting and scenario analyses"
+  },
+  {
     "objectID": "metarvm-wsc.html#funding-acknowledgments",
     "href": "metarvm-wsc.html#funding-acknowledgments",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
@@ -147,10 +154,10 @@
     "text": "Funding acknowledgments\n\nChicago Department of Public Health"
   },
   {
-    "objectID": "metarvm-wsc.html#questions",
-    "href": "metarvm-wsc.html#questions",
+    "objectID": "metarvm-wsc.html#references",
+    "href": "metarvm-wsc.html#references",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
-    "section": "Questions?",
-    "text": "Questions?\nThank you!"
+    "section": "References",
+    "text": "References\n\n\nMacal, Charles M, Nicholson T Collier, Jonathan Ozik, Eric R Tatara, and John T Murphy. 2018. “Chisim: An Agent-Based Simulation Model of Social Interactions in a Large Urban Area.” In 2018 Winter Simulation Conference (WSC), 810–20. IEEE."
   }
 ]

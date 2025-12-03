@@ -6,6 +6,7 @@ affiliation: "Decision and Infrastructure Sciences"
 institute: "Argonne National Laboratory"
 date: "December 8, 2025"
 conference: "Winter Simulation Conference 2025"
+bibliography: refs.bib
 format:
   revealjs:
     theme: simple
@@ -53,22 +54,9 @@ execute:
 
 ------------------------------------------------------------------------
 
-## Follow along
-
-::: columns
-::: column
-![](figures/qrcode.png){width="100%"}
-:::
-
-::: column
-<https://resume-epi.github.io/WSC25-MetaRVM-talk/>
-:::
-:::
-
-------------------------------------------------------------------------
-
 ## Roadmap
-
+::: {.columns .two-wide-narrow-panel}
+::: column
 -   Motivation & collaboration context\
 -   MetaRVM modeling framework
     -   Metapopulation structure\
@@ -77,7 +65,14 @@ execute:
 -   Implementation as an **R package**
 -   Trajectory-oriented optimization
 -   Case study: influenza in Chicago
+:::
 
+::: column
+![](figures/qrcode.png){width="100%"}
+<https://tinyurl.com/wsc-metarvm>
+:::
+
+:::
 ------------------------------------------------------------------------
 
 ## Motivation
@@ -118,7 +113,7 @@ execute:
 ## Motivation {data-auto-animate="true"}
 
 ::: {.columns .three-panel}
-::: {#ode-panel .column}
+::: {#ode-panel-dim .column}
 #### Population-based ODE model
 
 -   Aggregate-level dynamics\
@@ -138,7 +133,7 @@ execute:
 ![](figures/meta-model.png){width="120%"}
 :::
 
-::: {#abm-panel .column}
+::: {#abm-panel-dim .column}
 #### Agent-based model
 
 -   Individual-level interactions\
@@ -152,6 +147,8 @@ execute:
 
 ## MetaRVM {.incremental}
 
+::: {.columns .two-wide-narrow-panel}
+::: { .column}
 -   An open-source **R package** for modeling infectious disease spread across **stratified subpopulations**.
 -   Subpopulations can be defined by:
     -   Geography (e.g., neighborhood, ZIP, zone)
@@ -160,16 +157,26 @@ execute:
     -   Time varying mixing pattern (weekday vs weekend, day vs night)
     -   Extended SEIR-type disease progression
     -   Checkpointing/restart functionality
-    <!--- Integration with Trajectory-Oriented Optimization workflows -->
+:::
+
+::: {.column .callout}
+![](figures/metarvm-screenshot.png){width="120%"}
+:::
+:::
+
+
+<!--- Integration with Trajectory-Oriented Optimization workflows -->
 <!-- JOcomment: This last point is different from the others. Are we emphasizing the modularity or the checkpointing or both? We need to make the point clearer. -->
 <!-- JOcomment: make this a two column page, with left column with text (wider) and a screenshot of the MetaRVM package page on the right, emphasizing the open and available nature. -->
+<!-- AFcomment: DONE -->
 
 ------------------------------------------------------------------------
 
 ## MetaRVM - Disease model
 
-![](figures/GIRD-Vensim.svg){width="100%"}
+![](figures/model.png){width="100%"}
 <!-- JOcomment: Did you want to use the newer/cleaner image? The one in the website. -->
+<!-- AFcomment: DONE -->
 
 ------------------------------------------------------------------------
 
@@ -203,9 +210,9 @@ $$
 $$
 
 -   **Mixing across demographic strata**
-<!-- JOcomment: FYI, mathcal{J} needs to be rendered as common HTML to show up in VSCode's Preview (not HTML-CSS)  -->
 
-$M$: mixing matrix $$
+$M$: mixing matrix 
+$$
 M = (m_{ij}), \qquad \sum_{j \in \mathcal{J}} m_{ij} = 1 \ \forall i,
 $$
 
@@ -219,7 +226,7 @@ $$
 
 ## Mixing and force of infection
 
--   **Force of infection (Susceptible [S] vs Vaccinated [V])**
+- **Force of infection (Susceptible [S] vs Vaccinated [V])**
 
 $$
 \lambda_{s,t}^{(j)} = \beta_s \frac{I_{t,\text{eff}}^{(j)}}{\mathrm{MP}_{t,\text{eff}}^{(j)}}, 
@@ -227,7 +234,7 @@ $$
 \lambda_{v,t}^{(j)} = \beta_v \frac{I_{t,\text{eff}}^{(j)}}{\mathrm{MP}_{t,\text{eff}}^{(j)}}.
 $$
 
--   **S → Exposed [E] transition in stratum (j)**
+- **S → Exposed [E] transition in stratum (j)**
 
 $$
 p_{\mathrm{SE}}^{(j)} = 1 - \exp\!\big(-\lambda_{s,t}^{(j)} \,\Delta t\big), 
@@ -239,14 +246,38 @@ $$
 
 ## Age-stratified model - illustration
 
-### What we need
+#### Ingredients
 
--   Population counts
-    -   Source: Census
--   Daily vaccination schedule
-    -   Source: CDPH
--   Mixing matrices
-    -   Source: **ChiSIM** synthetic population 
+::: {.columns .three-equal-panel}
+
+::: {.column .fragment .zoom-step data-fragment-index="1" #col1}
+**Population initialization**
+
+- Age-groups: 0-17, 18-64, 65+
+- Initial conditions 
+
+![](figures/pop-init.png){width="70%"}
+:::
+
+::: {.column .fragment .zoom-step data-fragment-index="2" #col2}
+**Vaccination**
+
+- Daily vaccination counts
+
+![](figures/daily_vax.png){width="100%"}
+:::
+
+::: {.column .fragment .zoom-step data-fragment-index="3" #col3}
+**Mixing matrices**
+
+- Time varying mixing 
+
+![](figures/day_mixing.png){width="100%"}
+![](figures/day_mixing.png){width="100%"}  <!-- or whatever your second figure is -->
+:::
+
+:::
+
 
 <!-- JOcomment: Add ChiSIM reference at the bottom of page? -->
 
@@ -254,6 +285,9 @@ $$
 
 ## Age-stratified model - illustration
 
+::: {.columns .two-wide-narrow-panel}
+
+::: {.column}
 ### Synthetic population
 
 -   **Statistically representative synthetic population** of Chicago\
@@ -268,6 +302,16 @@ $$
     (some adults assigned schools as workplaces)
 
 -   **Additional mixing locations** (restaurants, gyms, etc.) from SafeGraph
+:::
+
+::: {.column}
+### ChiSim
+![](figures/chisim.png){width="80%"}
+![](figures/chisim-chicago.gif){width="60%"}
+@macal2018chisim
+:::
+
+:::
 
 ------------------------------------------------------------------------
 
@@ -275,7 +319,11 @@ $$
 
 ### Mobility --\> Mixing
 
--   **Agent mobility from real schedules**
+::: {.columns .two-wide-narrow-panel}
+
+::: {.column}
+
+-  **Agent mobility from real schedules**
 
     -   Adults: American Time Use Survey
     -   Children: Panel Study of Income Dynamics
@@ -288,6 +336,15 @@ $$
     -   Count the total number of contacts that occur at each location between and within subpopulations
     -   Normalize the counts to arrive at per-capita value
 
+:::
+
+::: {.column}
+#### ChiSim
+![](figures/chisim-mobility.gif){width="100%"}
+@macal2018chisim
+:::
+
+:::
 ------------------------------------------------------------------------
 
 ## Daytime vs Nightime mixing
@@ -312,24 +369,81 @@ $$
 
 ------------------------------------------------------------------------
 
-## Vaccination
+## MetaRVM in action
 
-![](figures/daily_vax.png){width="100%"}
+#### Prepare configuration 
 
+```yml
+run_id: age-stratified
+population_data:
+  mapping: demographic_mapping.csv
+  initialization: population_init.csv
+  vaccination: vaccination.csv
+mixing_matrix:
+  weekday_day: m_wd_d.csv
+  weekday_night: m_wd_n.csv
+  weekend_day: m_we_d.csv
+  weekend_night: m_we_n.csv
+disease_params:
+  ts: 0.5
+  tv: 0.3
+  ve : 0.5
+  dv: 158
+  dp: 1
+  de: 3
+  da: 5
+  ds: 6
+  dh: 4
+  dr: 187
+  pea: 0.333
+  psr: 0.95
+  phr: 0.97
+sub_disease_params:
+    age:
+      0-17:
+        ts: 0.5
+        tv: 0.1
+        pea: 0.1
+        psr: 0.99
+      18-64:
+        ts: 0.5
+        tv: 4
+        pea: 0.1
+        psr: 0.99
+      65+:
+        ts: 0.5
+        tv: 7
+        pea: 0.3
+        psr: 0.97
+simulation_config:
+  start_date: 10/01/2023 # m/d/Y
+  length: 200
+```
+
+------------------------------------------------------------------------
+
+## MetaRVM in action
+
+#### Run simulation
+
+```r
+library(MetaRVM)
+out <- metaRVM("config.yaml")
+```
 ------------------------------------------------------------------------
 
 ## MetaRVM in action
 
 ### Track influenza hospitalizations by age-groups
 
--   **Goal**:
-    -   Calibrate MetaRVM, i.e., estimate parameters to match age-stratified hospitalizations.
--   **Approach**:
-    -   Select the calibration parameters
-        -   age-stratified $\beta_s$, $\beta_v$, $pea$, $psh$.
-    -   Apply ***Trajectory Oriented Optimization*** to find relevant trajectories matching observations.
-        -   <https://doi.org/10.1109/WSC60868.2023.10408258>
-    -   Time-varying parameters
+- **Goal**:
+  - Calibrate MetaRVM, i.e., estimate parameters to match age-stratified hospitalizations.
+- **Approach**:
+  -   Select the calibration parameters
+    -   age-stratified $\beta_s$, $\beta_v$, $pea$, $psh$.
+  -   Apply ***Trajectory Oriented Optimization*** to find relevant trajectories matching observations.
+    -   <https://doi.org/10.1109/WSC60868.2023.10408258>
+  -   Time-varying parameters
 
 ------------------------------------------------------------------------
 
@@ -366,8 +480,10 @@ $$
 
 -   Chicago Department of Public Health
 
+
 ------------------------------------------------------------------------
 
-## Questions?
+## References
 
-*Thank you!*
+::: {#refs}
+:::
