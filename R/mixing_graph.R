@@ -126,17 +126,17 @@ m_wd_n <- matrix(
 )
 
 m_we_d <- matrix(
-  c(0.944, 0.054, 0.002,
-    0.150, 0.820, 0.030,
-    0.139, 0.686, 0.175),
+  c(0.395, 0.51, 0.095,
+    0.268, 0.64, 0.091,
+    0.292, 0.537, 0.171),
   nrow = 3, byrow = TRUE,
   dimnames = list(from = age_groups, to = age_groups)
 )
 
 m_we_n <- matrix(
-  c(0.482, 0.490, 0.028,
-    0.262, 0.684, 0.054,
-    0.153, 0.554, 0.292),
+  c(0.386, 0.579, 0.035,
+    0.274, 0.67, 0.056,
+    0.158, 0.538, 0.304),
   nrow = 3, byrow = TRUE,
   dimnames = list(from = age_groups, to = age_groups)
 )
