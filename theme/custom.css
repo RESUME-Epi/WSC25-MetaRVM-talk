@@ -77,6 +77,28 @@ section[data-state="title-slide"] h1 {
   font-weight: 500 !important;
 }
 
+/* Slide titles */
+/* Full-width slide title bar */
+.reveal section h2 {
+  display: block;                  /* spans width */
+  width: 100%;
+  background: rgba(240, 245, 250, 0.9);   /* light background */
+  padding: 14px 20px;
+  border-radius: 12px;             /* rounded edges */
+  margin: 0px 0 25px 0;            /* spacing below title */
+  border: 1px solid rgba(0,0,0,0.15);
+  font-weight: 700;
+  text-align: left;                /* or center if you prefer */
+  box-sizing: border-box;          /* avoids overflow */
+
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+}
+
+/* Optional: MetaRVM teal accent bar on the left */
+.reveal section h2 {
+  border-left: 8px solid #1a6f8f;
+}
+
 /* ============================================================
    BULLET STYLING FOR REVEALJS (Quarto)
    ------------------------------------

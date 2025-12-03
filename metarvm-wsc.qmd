@@ -199,7 +199,7 @@ execute:
 ![](figures/metafig.png){width="100%"}
 
 -   For each stratum, the **force of infection** depends on:
-    -   Mixing rates between the strata $M = (m_{ij})$
+    -   Mixing rates between the stratum $i$ and $j$ $M = (m_{ij}), \quad, i, j \in \mathcal{J}$ (set of all strata)
     -   Prevalence of infectious individuals in $j$th stratum at time $t$, $I_t^{(j)}$, where $j \in \mathcal{J}$
 
 
@@ -207,13 +207,13 @@ execute:
 
 ## Mixing and force of infection
 
--   **Effective interacting population (exclude Hospitalized [H], Dead [D] from total Population [P])**
+- Effective interacting population (exclude **Hospitalized [H]**, **Dead [D]** from total **Population [P]**)
 
 $$
 \mathrm{MP}_t^{(j)} = P_t^{(j)} - H_t^{(j)} - D_t^{(j)}, \qquad j \in \mathcal{J}.
 $$
 
--   **Mixing across demographic strata**
+- Mixing across demographic strata
 
 $M$: mixing matrix 
 $$
@@ -238,17 +238,16 @@ $$
 \lambda_{v,t}^{(j)} = \beta_v \frac{I_{t,\text{eff}}^{(j)}}{\mathrm{MP}_{t,\text{eff}}^{(j)}}.
 $$
 
-- **S → Exposed [E] transition in stratum (j)**
+- **Susceptible [S] → Exposed [E] transition in stratum (j)**
 
-$$
-p_{\mathrm{SE}}^{(j)} = 1 - \exp\!\big(-\lambda_{s,t}^{(j)} \,\Delta t\big), 
-\\
-\Delta SE_t^{(j)} = p_{\mathrm{SE}}^{(j)}\,S_t^{(j)}.
-$$
+::: {.callout-important}
+$$\text{probability of being infected:} \quad p_{\mathrm{SE}}^{(j)} = 1 - \exp\!\big(-\lambda_{s,t}^{(j)} \,\Delta t\big) \\
+\text{New infections:} \quad \Delta E_t^{(j)} = p_{\mathrm{SE}}^{(j)}\,S_t^{(j)}$$
+:::
 
 ------------------------------------------------------------------------
 
-## Age-stratified model - illustration
+## Age-stratified model -- Illustration
 
 #### Ingredients
 
@@ -287,29 +286,37 @@ $$
 
 ------------------------------------------------------------------------
 
-## Age-stratified model - illustration
+## Age-stratified model -- Illustration
 
 ::: {.columns .two-wide-narrow-panel}
 
 ::: {.column}
-### Synthetic population
+#### Synthetic population
 
--   **Statistically representative synthetic population** of Chicago\
-    (2.7M people, 1.4M places, 13k activity schedules)
+- Person demographics and household composition are derived from multiple
+sources, including U.S. census data.
 
--   **Demographically accurate households** from ACS + PUMS at the CBG level
+- Places include schools, workplaces, households, nursing homes and hospitals.
 
--   **Workplaces** generated from County Business Patterns + LEHD OD data\
-    (individuals assigned to realistic work locations)
+- Agent activity schedules are derived from the American Time Use Survey
+and the Panel Study of Income dynamics.
 
--   **Schools** assigned to all school-aged children\
+<!-- -   Statistically representative ***synthetic population*** of Chicago
+    (2.7M people, 1.4M places, 13K activity schedules)
+
+-   ***Households*** from ACS + PUMS at the CBG level
+
+-   ***Workplaces*** generated from County Business Patterns + LEHD OD data
+
+-   ***Schools*** assigned to all school-aged children
     (some adults assigned schools as workplaces)
 
--   **Additional mixing locations** (restaurants, gyms, etc.) from SafeGraph
+-   Additional ***mixing locations*** (restaurants, gyms, etc.) from SafeGraph -->
+<!-- Do we need all these info? -->
 :::
 
 ::: {.column}
-### ChiSIM
+#### ChiSIM
 ![](figures/ChiSIM_Synthpop.png){width="80%"}
 ![](figures/chisim-chicago.gif){width="60%"}
 @macal2018chisim
@@ -319,26 +326,24 @@ $$
 
 ------------------------------------------------------------------------
 
-## Age-stratified model - illustration
+## Age-stratified model -- Illustration
 
-### Mobility --\> Mixing
+#### Mobility --\> Mixing
 
 ::: {.columns .two-wide-narrow-panel}
 
 ::: {.column}
 
--  **Agent mobility from real schedules**
+<!-- - **Agent mobility from real schedules**
+  -  Adults: American Time Use Survey
+  -  Children: Panel Study of Income Dynamics -->
+<!-- -   Each agent draws 1 of 10 possible schedules daily (weekday/weekend) -->
 
-    -   Adults: American Time Use Survey
-    -   Children: Panel Study of Income Dynamics
-    <!-- -   Each agent draws 1 of 10 possible schedules daily (weekday/weekend) -->
+- **Contact network** emerges from hour-by-hour co-location of agents
 
--   **Endogenous contact network** emerges from hour-by-hour co-location of agents
-
--   **Aggregate**
-
-    -   Count the total number of contacts that occur at each location between and within subpopulations
-    -   Normalize the counts to arrive at per-capita value
+- **Aggregate**
+  - Count the total number of contacts that occur at each location between and within subpopulations
+  - Normalize the counts to arrive at per-capita value
 
 :::
 
@@ -452,7 +457,7 @@ out <- metaRVM("config_checkpoint.yaml")
   - Parameters to estimate: 
       - $ts$: transmissibility for susceptible population 
       - $tv$: transmissibility for vaccinated population 
-      - $pea$: proportion of asymptomatic cases, 
+      - $pea$: proportion of asymptomatic cases
       - $psh$: proportion of hospitalized among symptomatic cases
 - **Approach**:
   - Apply ***Bayesian Optimization*** to find relevant trajectories matching the observed data (@fadikar2023TOO)
