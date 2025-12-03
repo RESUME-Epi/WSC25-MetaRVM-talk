@@ -88,21 +88,21 @@
     "href": "metarvm-wsc.html#age-stratified-model---illustration-1",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Age-stratified model - illustration",
-    "text": "Age-stratified model - illustration\n\n\nSynthetic population\n\nStatistically representative synthetic population of Chicago\n(2.7M people, 1.4M places, 13k activity schedules)\nDemographically accurate households from ACS + PUMS at the CBG level\nWorkplaces generated from County Business Patterns + LEHD OD data\n(individuals assigned to realistic work locations)\nSchools assigned to all school-aged children\n(some adults assigned schools as workplaces)\nAdditional mixing locations (restaurants, gyms, etc.) from SafeGraph\n\n\nChiSim\n  Macal et al. (2018)"
+    "text": "Age-stratified model - illustration\n\n\nSynthetic population\n\nStatistically representative synthetic population of Chicago\n(2.7M people, 1.4M places, 13k activity schedules)\nDemographically accurate households from ACS + PUMS at the CBG level\nWorkplaces generated from County Business Patterns + LEHD OD data\n(individuals assigned to realistic work locations)\nSchools assigned to all school-aged children\n(some adults assigned schools as workplaces)\nAdditional mixing locations (restaurants, gyms, etc.) from SafeGraph\n\n\nChiSIM\n  Macal et al. (2018)"
   },
   {
     "objectID": "metarvm-wsc.html#age-stratified-model---illustration-2",
     "href": "metarvm-wsc.html#age-stratified-model---illustration-2",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Age-stratified model - illustration",
-    "text": "Age-stratified model - illustration\nMobility –&gt; Mixing\n\n\n\nAgent mobility from real schedules\n\nAdults: American Time Use Survey\nChildren: Panel Study of Income Dynamics\nEach agent draws 1 of 10 possible schedules daily (weekday/weekend)\n\nEndogenous contact network emerges from hour-by-hour co-location of agents\nAggregate\n\nCount the total number of contacts that occur at each location between and within subpopulations\nNormalize the counts to arrive at per-capita value\n\n\n\nChiSim\n Macal et al. (2018)"
+    "text": "Age-stratified model - illustration\nMobility –&gt; Mixing\n\n\n\nAgent mobility from real schedules\n\nAdults: American Time Use Survey\nChildren: Panel Study of Income Dynamics \n\nEndogenous contact network emerges from hour-by-hour co-location of agents\nAggregate\n\nCount the total number of contacts that occur at each location between and within subpopulations\nNormalize the counts to arrive at per-capita value\n\n\n\nChiSIM\n Macal et al. (2018)"
   },
   {
     "objectID": "metarvm-wsc.html#daytime-vs-nightime-mixing",
     "href": "metarvm-wsc.html#daytime-vs-nightime-mixing",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Daytime vs Nightime mixing",
-    "text": "Daytime vs Nightime mixing\n\n\nDaytime\n\nStrong location based mixing\n\n\n\nNighttime\n\nMore household and community mixing"
+    "text": "Daytime vs Nightime mixing\n\n\nDaytime\n\nLocation based mixing\n\n\n\nNighttime\n\nHousehold and community mixing"
   },
   {
     "objectID": "metarvm-wsc.html#metarvm-in-action",
@@ -123,14 +123,21 @@
     "href": "metarvm-wsc.html#metarvm-in-action-2",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "MetaRVM in action",
-    "text": "MetaRVM in action\nTrack influenza hospitalizations by age-groups\n\nGoal:\n\nCalibrate MetaRVM, i.e., estimate parameters to match age-stratified hospitalizations.\n\nApproach:\n\nSelect the calibration parameters\nage-stratified \\(\\beta_s\\), \\(\\beta_v\\), \\(pea\\), \\(psh\\).\nApply Trajectory Oriented Optimization to find relevant trajectories matching observations.\nhttps://doi.org/10.1109/WSC60868.2023.10408258\nTime-varying parameters"
+    "text": "MetaRVM in action\nUse of checkpoints\nout &lt;- metaRVM(\"config_checkpoint.yaml\")"
   },
   {
-    "objectID": "metarvm-wsc.html#results",
-    "href": "metarvm-wsc.html#results",
+    "objectID": "metarvm-wsc.html#tracking-age-stratified-influenza-hospitalizations",
+    "href": "metarvm-wsc.html#tracking-age-stratified-influenza-hospitalizations",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
-    "section": "Results",
-    "text": "Results"
+    "section": "Tracking age-stratified influenza hospitalizations",
+    "text": "Tracking age-stratified influenza hospitalizations\n\nGoal:\n\nCalibrate MetaRVM to weekly hospitalizations\nParameters to estimate:\n\n\\(ts\\): transmissibility for susceptible population\n\\(tv\\): transmissibility for vaccinated population\n\\(pea\\): proportion of asymptomatic cases,\n\\(psh\\): proportion of hospitalized among symptomatic cases\n\n\nApproach:\n\nApply Bayesian Optimization to find relevant trajectories matching the observed data (Fadikar et al. (2023))"
+  },
+  {
+    "objectID": "metarvm-wsc.html#tracking-age-stratified-influenza-hospitalizations-1",
+    "href": "metarvm-wsc.html#tracking-age-stratified-influenza-hospitalizations-1",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Tracking age-stratified influenza hospitalizations",
+    "text": "Tracking age-stratified influenza hospitalizations"
   },
   {
     "objectID": "metarvm-wsc.html#summary",
@@ -158,6 +165,6 @@
     "href": "metarvm-wsc.html#references",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "References",
-    "text": "References\n\n\nMacal, Charles M, Nicholson T Collier, Jonathan Ozik, Eric R Tatara, and John T Murphy. 2018. “Chisim: An Agent-Based Simulation Model of Social Interactions in a Large Urban Area.” In 2018 Winter Simulation Conference (WSC), 810–20. IEEE."
+    "text": "References\n\n\nFadikar, Arindam, Nicholson Collier, Abby Stevens, Jonathan Ozik, Mickaël Binois, and Kok Ben Toh. 2023. “Trajectory-Oriented Optimization of Stochastic Epidemiological Models.” In 2023 Winter Simulation Conference (WSC), 1244–55. https://doi.org/10.1109/WSC60868.2023.10408258.\n\n\nMacal, Charles M, Nicholson T Collier, Jonathan Ozik, Eric R Tatara, and John T Murphy. 2018. “Chisim: An Agent-Based Simulation Model of Social Interactions in a Large Urban Area.” In 2018 Winter Simulation Conference (WSC), 810–20. IEEE."
   }
 ]

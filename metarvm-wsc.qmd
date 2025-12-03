@@ -7,6 +7,10 @@ institute: "Argonne National Laboratory"
 date: "December 8, 2025"
 conference: "Winter Simulation Conference 2025"
 bibliography: refs.bib
+title-slide-attributes:
+  data-background-image: "figures/Chicago.jpg"
+  data-background-size: cover # Optional: Adjust how the image fits
+  data-background-opacity: "0.25" # Optional: Adjust image opacity
 format:
   revealjs:
     theme: simple
@@ -305,8 +309,8 @@ $$
 :::
 
 ::: {.column}
-### ChiSim
-![](figures/chisim.png){width="80%"}
+### ChiSIM
+![](figures/ChiSIM_Synthpop.png){width="80%"}
 ![](figures/chisim-chicago.gif){width="60%"}
 @macal2018chisim
 :::
@@ -327,7 +331,7 @@ $$
 
     -   Adults: American Time Use Survey
     -   Children: Panel Study of Income Dynamics
-    -   Each agent draws 1 of 10 possible schedules daily (weekday/weekend)
+    <!-- -   Each agent draws 1 of 10 possible schedules daily (weekday/weekend) -->
 
 -   **Endogenous contact network** emerges from hour-by-hour co-location of agents
 
@@ -339,7 +343,7 @@ $$
 :::
 
 ::: {.column}
-#### ChiSim
+#### ChiSIM
 ![](figures/chisim-mobility.gif){width="100%"}
 @macal2018chisim
 :::
@@ -353,7 +357,7 @@ $$
 ::: {#daytime .column}
 #### **Daytime**
 
--   Strong location based mixing
+-   Location based mixing
 
 ![](figures/day_contact.png){width="100%"}
 :::
@@ -361,7 +365,7 @@ $$
 ::: {#nighttime .column}
 #### **Nighttime**
 
--   More household and community mixing
+-   Household and community mixing
 
 ![](figures/night_contact.png){width="100%"}
 :::
@@ -434,20 +438,28 @@ out <- metaRVM("config.yaml")
 
 ## MetaRVM in action
 
-### Track influenza hospitalizations by age-groups
+#### Use of checkpoints
 
-- **Goal**:
-  - Calibrate MetaRVM, i.e., estimate parameters to match age-stratified hospitalizations.
-- **Approach**:
-  -   Select the calibration parameters
-    -   age-stratified $\beta_s$, $\beta_v$, $pea$, $psh$.
-  -   Apply ***Trajectory Oriented Optimization*** to find relevant trajectories matching observations.
-    -   <https://doi.org/10.1109/WSC60868.2023.10408258>
-  -   Time-varying parameters
-
+```r
+out <- metaRVM("config_checkpoint.yaml")
+```
 ------------------------------------------------------------------------
 
-## Results
+## Tracking age-stratified influenza hospitalizations
+
+- **Goal**:
+  - Calibrate MetaRVM to weekly hospitalizations
+  - Parameters to estimate: 
+      - $ts$: transmissibility for susceptible population 
+      - $tv$: transmissibility for vaccinated population 
+      - $pea$: proportion of asymptomatic cases, 
+      - $psh$: proportion of hospitalized among symptomatic cases
+- **Approach**:
+  - Apply ***Bayesian Optimization*** to find relevant trajectories matching the observed data (@fadikar2023TOO)
+    
+------------------------------------------------------------------------
+
+## Tracking age-stratified influenza hospitalizations
 
 ![](figures/chicago_fit_1-30_90p.png){width="100%"}
 

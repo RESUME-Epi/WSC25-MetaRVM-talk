@@ -16,6 +16,7 @@
    TITLE SLIDE CUSTOMIZATION
 ---------------------------- */
 
+
 .reveal #title-slide .title {
   display: inline-block;                /* shrink-wrap to title text */
   padding: 0.4em 0.8em;                 /* spacing inside the box */
@@ -29,7 +30,7 @@
 /* Title: smaller + colored */
 .reveal #title-slide .title {
   font-size: 1.8em !important;     /* smaller than default */
-  color: #1a6f8f !important;
+  color: #0d485eff !important;
   margin-bottom: 1em;
   font-weight: 500;
 }
