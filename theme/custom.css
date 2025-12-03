@@ -21,10 +21,10 @@
   display: inline-block;                /* shrink-wrap to title text */
   padding: 0.4em 0.8em;                 /* spacing inside the box */
   
-  background: rgba(99, 171, 197, 0.1); /* light teal tint */
-  border: 2px solid rgba(26, 111, 143, 0.25);
+  background: rgba(99, 171, 197, 0.28); /* light teal tint */
+  border: 4px solid rgba(26, 112, 143, 0.69);
   border-radius: 8px;
-
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
 /* Title: smaller + colored */

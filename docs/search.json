@@ -4,7 +4,7 @@
     "href": "metarvm-wsc.html#people-involved",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "People involved",
-    "text": "People involved\n\n\n\n\nArindam Fadikar\n\nAbby Stevens\nSara Rimer\nIgnacio Martinez-Moyano\nNicholson Colllier\nJonathan Ozik\nCharles Macal\n\n\n\n\nChol Mabil\nEmile Jorgensen\nPeter Ruestow\nV. Eloesa McSorley"
+    "text": "People involved\n\n\n\n\n\n\n\n\nChol Mabil\nEmile Jorgensen\nPeter Ruestow\nV. Eloesa McSorley"
   },
   {
     "objectID": "metarvm-wsc.html#roadmap",
@@ -95,7 +95,7 @@
     "href": "metarvm-wsc.html#age-stratified-model-illustration-2",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Age-stratified model – Illustration",
-    "text": "Age-stratified model – Illustration\nMobility –&gt; Mixing\n\n\n\n\n\nContact network emerges from hour-by-hour co-location of agents\nAggregate\n\nCount the total number of contacts that occur at each location between and within subpopulations\nNormalize the counts to arrive at per-capita value\n\n\n\nChiSIM\n Macal et al. (2018)"
+    "text": "Age-stratified model – Illustration\n\n\nMobility –&gt; Mixing\n\n\n\nContact network emerges from hour-by-hour co-location of agents\nAggregate\n\nCount the total number of contacts that occur at each location between and within subpopulations\nNormalize the counts to arrive at per-capita value\n\n\n\nChiSIM\n Macal et al. (2018)"
   },
   {
     "objectID": "metarvm-wsc.html#daytime-vs-nightime-mixing",

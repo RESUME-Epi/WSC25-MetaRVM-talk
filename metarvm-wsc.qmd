@@ -37,13 +37,15 @@ execute:
 ::: {#argonne .column}
 ![](figures/ANL_RGB-01.png){width="50%"}
 
--   Arindam Fadikar\
+![](figures/anl-heads.png){width="100%"}
+
+<!-- -   Arindam Fadikar\
 -   Abby Stevens
 -   Sara Rimer
 -   Ignacio Martinez-Moyano
 -   Nicholson Colllier
 -   Jonathan Ozik
--   Charles Macal
+-   Charles Macal -->
 :::
 
 ::: {#cdph .column}
@@ -328,12 +330,10 @@ and the Panel Study of Income dynamics.
 
 ## Age-stratified model -- Illustration
 
-#### Mobility --\> Mixing
-
 ::: {.columns .two-wide-narrow-panel}
 
 ::: {.column}
-
+#### Mobility --\> Mixing
 <!-- - **Agent mobility from real schedules**
   -  Adults: American Time Use Survey
   -  Children: Panel Study of Income Dynamics -->

@@ -104,3 +104,39 @@ gg <- ggraph(g, layout = "bipartite") +
   theme(legend.position = "none")
 
 ggsave("figures/night_contact.png", gg)
+
+
+
+## Mixing matrices
+
+m_wd_d <- matrix(
+  c(0.944, 0.054, 0.002,
+    0.150, 0.820, 0.030,
+    0.139, 0.686, 0.175),
+  nrow = 3, byrow = TRUE,
+  dimnames = list(from = age_groups, to = age_groups)
+)
+
+m_wd_n <- matrix(
+  c(0.482, 0.490, 0.028,
+    0.262, 0.684, 0.054,
+    0.153, 0.554, 0.292),
+  nrow = 3, byrow = TRUE,
+  dimnames = list(from = age_groups, to = age_groups)
+)
+
+m_we_d <- matrix(
+  c(0.944, 0.054, 0.002,
+    0.150, 0.820, 0.030,
+    0.139, 0.686, 0.175),
+  nrow = 3, byrow = TRUE,
+  dimnames = list(from = age_groups, to = age_groups)
+)
+
+m_we_n <- matrix(
+  c(0.482, 0.490, 0.028,
+    0.262, 0.684, 0.054,
+    0.153, 0.554, 0.292),
+  nrow = 3, byrow = TRUE,
+  dimnames = list(from = age_groups, to = age_groups)
+)
