@@ -11,14 +11,14 @@
     "href": "metarvm-wsc.html#roadmap",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Roadmap",
-    "text": "Roadmap\n\n\n\nMotivation & collaboration context\n\nMetaRVM modeling framework\n\nMetapopulation structure\n\nDisease progression model\n\nMixing matrices from a synthetic population\n\n\nImplementation as an R package\nTrajectory-oriented optimization\nCase study: influenza in Chicago\n\n\n https://tinyurl.com/wsc-metarvm"
+    "text": "Roadmap\n\n\n\nContext\n\nMetaRVM modeling framework\n\nMetapopulation structure\n\nDisease progression model\n\nMixing matrices from a synthetic population\n\n\nImplementation as an R package\nCase study: influenza in Chicago\n\n\n https://tinyurl.com/wsc-metarvm"
   },
   {
     "objectID": "metarvm-wsc.html#motivation",
     "href": "metarvm-wsc.html#motivation",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Motivation",
-    "text": "Motivation\n\nPublic health decision makers increasingly rely on epidemiological models to:\n\nForecast likely futures\nStress-test interventions\nPlan resource allocation (e.g., beds, staffing)"
+    "text": "Motivation\n\n\nPublic health decision makers increasingly rely on epidemiological models to:\n\nForecast likely futures\nStress-test interventions\nPlan resource allocation (e.g., beds, staffing)"
   },
   {
     "objectID": "metarvm-wsc.html#motivation-1",
@@ -109,21 +109,49 @@
     "href": "metarvm-wsc.html#metarvm-in-action",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "MetaRVM in action",
-    "text": "MetaRVM in action\nPrepare configuration\nrun_id: age-stratified\npopulation_data:\n  mapping: demographic_mapping.csv\n  initialization: population_init.csv\n  vaccination: vaccination.csv\nmixing_matrix:\n  weekday_day: m_wd_d.csv\n  weekday_night: m_wd_n.csv\n  weekend_day: m_we_d.csv\n  weekend_night: m_we_n.csv\ndisease_params:\n  ts: 0.5\n  tv: 0.3\n  ve : 0.5\n  dv: 158\n  dp: 1\n  de: 3\n  da: 5\n  ds: 6\n  dh: 4\n  dr: 187\n  pea: 0.333\n  psr: 0.95\n  phr: 0.97\nsub_disease_params:\n    age:\n      0-17:\n        ts: 0.5\n        tv: 0.1\n        pea: 0.1\n        psr: 0.99\n      18-64:\n        ts: 0.5\n        tv: 4\n        pea: 0.1\n        psr: 0.99\n      65+:\n        ts: 0.5\n        tv: 7\n        pea: 0.3\n        psr: 0.97\nsimulation_config:\n  start_date: 10/01/2023 # m/d/Y\n  length: 200"
+    "text": "MetaRVM in action\nPrepare configuration\nrun_id: age-stratified\npopulation_data:\n  mapping: demographic_mapping.csv\n  initialization: population_init.csv\n  vaccination: vaccination.csv\nmixing_matrix:\n  weekday_day: m_wd_d.csv\n  weekday_night: m_wd_n.csv\n  weekend_day: m_we_d.csv\n  weekend_night: m_we_n.csv\ndisease_params:\n  ts: 0.5\n  tv: 0.3\n  ve : 0.5\n  dv: 158\n  dp: 1\n  de: 3\n  da: 5\n  ds: 6\n  dh: 4\n  dr: 187\n  pea: 0.333\n  psr: 0.95\n  phr: 0.97\nsub_disease_params:\n    age:\n      0-17:\n        ts: 0.5\n        tv: 0.1\n        pea: 0.1\n        psr: 0.99\n      18-64:\n        ts: 0.5\n        tv: 4\n        pea: 0.1\n        psr: 0.99\n      65+:\n        ts: 0.5\n        tv: 7\n        pea: 0.3\n        psr: 0.97\nsimulation_config:\n  start_date: 8/01/2023 # m/d/Y\n  length: 365"
   },
   {
     "objectID": "metarvm-wsc.html#metarvm-in-action-1",
     "href": "metarvm-wsc.html#metarvm-in-action-1",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "MetaRVM in action",
-    "text": "MetaRVM in action\nRun simulation\nlibrary(MetaRVM)\nout &lt;- metaRVM(\"config.yaml\")"
+    "text": "MetaRVM in action\nRun simulation\n\nlibrary(MetaRVM)\noptions(odin.verbose = FALSE)\nout &lt;- metaRVM(\"R/config.yaml\")\nprint(out)\n\nMetaRVM Results Object\n=====================\nInstances: 1 \nPopulations: 3 \nDate range: 2023-08-01 to 2024-07-30 \nTotal observations: 33945 \nDisease states: D, E, H, I_all, I_asymp, I_eff, I_presymp, I_symp, P, R, S, V, cum_V, mob_pop, n_EI, n_EIpresymp, n_HD, n_HR, n_HRD, n_IasympR, n_IsympH, n_IsympR, n_IsympRH, n_SE, n_SV, n_VE, n_VS, n_preIsymp, p_HRD, p_SE, p_VE \n\n\n\nout$results\n\n             date    age   race   zone disease_state        value instance\n           &lt;Date&gt; &lt;char&gt; &lt;char&gt; &lt;char&gt;        &lt;char&gt;        &lt;num&gt;    &lt;int&gt;\n    1: 2023-08-01   0-17    all    all             D 2.191379e-05        1\n    2: 2023-08-01   0-17    all    all             E 2.434292e-01        1\n    3: 2023-08-01   0-17    all    all             H 1.344297e-02        1\n    4: 2023-08-01   0-17    all    all         I_all 7.420794e-01        1\n    5: 2023-08-01   0-17    all    all       I_asymp 2.299324e-02        1\n   ---                                                                    \n33941: 2024-07-30    65+    all    all          n_VS 5.717389e+01        1\n33942: 2024-07-30    65+    all    all    n_preIsymp 2.301472e+01        1\n33943: 2024-07-30    65+    all    all         p_HRD 9.516258e-02        1\n33944: 2024-07-30    65+    all    all          p_SE 9.283081e-04        1\n33945: 2024-07-30    65+    all    all          p_VE 3.714267e-04        1"
   },
   {
     "objectID": "metarvm-wsc.html#metarvm-in-action-2",
     "href": "metarvm-wsc.html#metarvm-in-action-2",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "MetaRVM in action",
-    "text": "MetaRVM in action\nUse of checkpoints\nout &lt;- metaRVM(\"config_checkpoint.yaml\")"
+    "text": "MetaRVM in action\nVisualize\n\n# extract new hospitalizations\nout_H &lt;- out$subset_data(disease_states = \"n_IsympH\")\n\nlibrary(ggplot2)\nggplot(out_H$results, aes(x = date, y = value, color = age)) + \n  geom_line() + theme_bw()"
+  },
+  {
+    "objectID": "metarvm-wsc.html#metarvm-in-action-3",
+    "href": "metarvm-wsc.html#metarvm-in-action-3",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "MetaRVM in action",
+    "text": "MetaRVM in action\nUse of checkpoints\n\n\n\n\n\n\nTip\n\n\nsimulation_config:\n  start_date: 8/01/2023 # m/d/Y\n  length: 60\n  checkpoint_dir: \"path-to-the-checkpoint-directory\"\n  restore_from: \"path-to-checkpoint-file\"\n\n\n\nRun a simulation and checkpoint\n\nout &lt;- metaRVM(checkpoint_config)\nprint(out)\n\nMetaRVM Results Object\n=====================\nInstances: 1 \nPopulations: 3 \nDate range: 2023-08-01 to 2024-01-27 \nTotal observations: 16740 \nDisease states: D, E, H, I_all, I_asymp, I_eff, I_presymp, I_symp, P, R, S, V, cum_V, mob_pop, n_EI, n_EIpresymp, n_HD, n_HR, n_HRD, n_IasympR, n_IsympH, n_IsympR, n_IsympRH, n_SE, n_SV, n_VE, n_VS, n_preIsymp, p_HRD, p_SE, p_VE \n\n# Check what checkpoint files were created\ncheckpoint_files &lt;- list.files(checkpoint_dir, \n                               pattern = \"^chk_.*\\\\.Rda$\",\n                               full.names = FALSE)\ncheckpoint_files\n\n[1] \"chk_2024-01-27_1.Rda\""
+  },
+  {
+    "objectID": "metarvm-wsc.html#metarvm-in-action-4",
+    "href": "metarvm-wsc.html#metarvm-in-action-4",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "MetaRVM in action",
+    "text": "MetaRVM in action\nUse of checkpoints\n\n\n\n\n\n\nTip\n\n\nsimulation_config:\n  start_date: 8/01/2023 # m/d/Y\n  length: 60\n  checkpoint_dir: \"path-to-the-checkpoint-directory\"\n  restore_from: \"path-to-checkpoint-file\"\n\n\n\nRestore from a checkpoint\n\nout &lt;- metaRVM(config_resume)\nprint(out)\n\nMetaRVM Results Object\n=====================\nInstances: 1 \nPopulations: 3 \nDate range: 2024-01-28 to 2024-07-25 \nTotal observations: 16740 \nDisease states: D, E, H, I_all, I_asymp, I_eff, I_presymp, I_symp, P, R, S, V, cum_V, mob_pop, n_EI, n_EIpresymp, n_HD, n_HR, n_HRD, n_IasympR, n_IsympH, n_IsympR, n_IsympRH, n_SE, n_SV, n_VE, n_VS, n_preIsymp, p_HRD, p_SE, p_VE"
+  },
+  {
+    "objectID": "metarvm-wsc.html#metarvm-in-action-5",
+    "href": "metarvm-wsc.html#metarvm-in-action-5",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "MetaRVM in action",
+    "text": "MetaRVM in action\nUse of checkpoints"
+  },
+  {
+    "objectID": "metarvm-wsc.html#metarvm-in-action-6",
+    "href": "metarvm-wsc.html#metarvm-in-action-6",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "MetaRVM in action",
+    "text": "MetaRVM in action\nUse of checkpoints"
   },
   {
     "objectID": "metarvm-wsc.html#tracking-age-stratified-influenza-hospitalizations",
@@ -138,6 +166,13 @@
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Tracking age-stratified influenza hospitalizations",
     "text": "Tracking age-stratified influenza hospitalizations"
+  },
+  {
+    "objectID": "metarvm-wsc.html#tracking-age-stratified-influenza-hospitalizations-2",
+    "href": "metarvm-wsc.html#tracking-age-stratified-influenza-hospitalizations-2",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "Tracking age-stratified influenza hospitalizations",
+    "text": "Tracking age-stratified influenza hospitalizations\n\n\n\nWeek 1 - 10 \n\n\n\nWeek 11 - 20 \n\n\n\nWeek 21 - 30"
   },
   {
     "objectID": "metarvm-wsc.html#summary",

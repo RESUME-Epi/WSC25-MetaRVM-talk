@@ -11,6 +11,7 @@ title-slide-attributes:
   data-background-image: "figures/Chicago.jpg"
   data-background-size: cover # Optional: Adjust how the image fits
   data-background-opacity: "0.25" # Optional: Adjust image opacity
+echo: true
 format:
   revealjs:
     theme: simple
@@ -24,6 +25,9 @@ format:
     progress: true
     transition: fade
     navigation-mode: vertical
+    highlight-style: github
+    code-block-background: "#f7f9fc"
+    code-block-border-left: "#1a6f8f"   # MetaRVM teal
 execute:
   echo: false
   warning: false
@@ -63,13 +67,12 @@ execute:
 ## Roadmap
 ::: {.columns .two-wide-narrow-panel}
 ::: column
--   Motivation & collaboration context\
+-   Context\
 -   MetaRVM modeling framework
     -   Metapopulation structure\
     -   Disease progression model\
     -   Mixing matrices from a synthetic population\
 -   Implementation as an **R package**
--   Trajectory-oriented optimization
 -   Case study: influenza in Chicago
 :::
 
@@ -82,7 +85,7 @@ execute:
 ------------------------------------------------------------------------
 
 ## Motivation
-
+<!-- AFcomment: JO to work on -->
 -   Public health decision makers increasingly rely on **epidemiological models** to:
     -   Forecast likely futures
     -   Stress-test interventions
@@ -425,8 +428,8 @@ sub_disease_params:
         pea: 0.3
         psr: 0.97
 simulation_config:
-  start_date: 10/01/2023 # m/d/Y
-  length: 200
+  start_date: 8/01/2023 # m/d/Y
+  length: 365
 ```
 
 ------------------------------------------------------------------------
@@ -435,9 +438,29 @@ simulation_config:
 
 #### Run simulation
 
-```r
+```{r, echo = TRUE}
 library(MetaRVM)
-out <- metaRVM("config.yaml")
+options(odin.verbose = FALSE)
+out <- metaRVM("R/config.yaml")
+print(out)
+```
+
+```{r, echo = TRUE}
+out$results
+```
+------------------------------------------------------------------------
+
+## MetaRVM in action
+
+#### Visualize
+
+```{r, echo = TRUE}
+# extract new hospitalizations
+out_H <- out$subset_data(disease_states = "n_IsympH")
+
+library(ggplot2)
+ggplot(out_H$results, aes(x = date, y = value, color = age)) + 
+  geom_line() + theme_bw()
 ```
 ------------------------------------------------------------------------
 
@@ -445,9 +468,205 @@ out <- metaRVM("config.yaml")
 
 #### Use of checkpoints
 
-```r
-out <- metaRVM("config_checkpoint.yaml")
+:::{.callout-tip}
+```yaml
+simulation_config:
+  start_date: 8/01/2023 # m/d/Y
+  length: 60
+  checkpoint_dir: "path-to-the-checkpoint-directory"
+  restore_from: "path-to-checkpoint-file"
 ```
+:::
+
+Run a simulation and checkpoint
+
+```{r echo = FALSE}
+config_file <- "R/config_checkpoint.yaml"
+yml <- yaml::read_yaml(config_file)
+yml_tmp <- data.table::copy(yml)
+
+# Assign checkpoint directory
+checkpoint_dir <- tempdir()
+yml_tmp$simulation_config$checkpoint_dir <- checkpoint_dir
+
+# Create a temporary config
+temp_config <- tempfile(tmpdir = dirname(config_file), fileext = ".yaml")
+yaml::write_yaml(yml_tmp, temp_config)
+checkpoint_config <- normalizePath(temp_config)
+```
+
+```{r, echo = TRUE, eval = TRUE}
+out <- metaRVM(checkpoint_config)
+print(out)
+
+# Check what checkpoint files were created
+checkpoint_files <- list.files(checkpoint_dir, 
+                               pattern = "^chk_.*\\.Rda$",
+                               full.names = FALSE)
+checkpoint_files
+```
+
+```{r, echo = FALSE}
+unlink(temp_config)
+```
+------------------------------------------------------------------------
+
+## MetaRVM in action
+
+#### Use of checkpoints
+
+:::{.callout-tip}
+```yaml
+simulation_config:
+  start_date: 8/01/2023 # m/d/Y
+  length: 60
+  checkpoint_dir: "path-to-the-checkpoint-directory"
+  restore_from: "path-to-checkpoint-file"
+```
+:::
+
+Restore from a checkpoint
+
+```{r echo = FALSE, eval = T}
+# First run and checkpoint
+config_file <- "R/config_checkpoint.yaml"
+yml <- yaml::read_yaml(config_file)
+yml_tmp <- data.table::copy(yml)
+
+# Assign checkpoint directory
+checkpoint_dir <- tempdir()
+yml_tmp$simulation_config$checkpoint_dir <- checkpoint_dir
+
+# Create a temporary config
+temp_config <- tempfile(tmpdir = dirname(config_file), fileext = ".yaml")
+yaml::write_yaml(yml_tmp, temp_config)
+checkpoint_config <- normalizePath(temp_config)
+
+out <- metaRVM(checkpoint_config)
+
+checkpoint_files <- list.files(checkpoint_dir, 
+                               pattern = "^chk_.*\\.Rda$",
+                               full.names = TRUE)
+
+# Restore and run
+new_start_date <- "1/28/2024"
+yml_tmp <- data.table::copy(yml)
+yml_tmp$simulation_config$start_date <- new_start_date
+yml_tmp$simulation_config$restore_from <- checkpoint_files[1]
+yml_tmp$population_data$initialization <- NULL # ensure that we don't want to reinitialize the population from the initialization file
+
+temp_config_resume <- tempfile(tmpdir = dirname(config_file),fileext = ".yaml")
+yaml::write_yaml(yml_tmp, temp_config_resume)
+config_resume <- normalizePath(temp_config_resume)
+  
+```
+
+```{r, echo = TRUE, eval = T}
+out <- metaRVM(config_resume)
+print(out)
+```
+
+```{r, echo = FALSE, eval = T}
+unlink(temp_config)
+unlink(temp_config_resume)
+```
+------------------------------------------------------------------------
+
+## MetaRVM in action
+
+#### Use of checkpoints
+
+```{r, echo = F}
+# First run and checkpoint
+config_file <- "R/config_checkpoint.yaml"
+yml <- yaml::read_yaml(config_file)
+yml_tmp <- data.table::copy(yml)
+
+# Assign checkpoint directory
+checkpoint_dir <- tempdir()
+yml_tmp$simulation_config$checkpoint_dir <- checkpoint_dir
+
+# Create a temporary config
+temp_config <- tempfile(tmpdir = dirname(config_file), fileext = ".yaml")
+yaml::write_yaml(yml_tmp, temp_config)
+checkpoint_config <- normalizePath(temp_config)
+
+out <- metaRVM(checkpoint_config)
+
+out_H <- out$subset_data(disease_states = "n_IsympH")
+
+library(ggplot2)
+ggplot(out_H$results, aes(x = date, y = value, color = age)) + 
+  geom_line() + 
+  geom_vline(xintercept = as.Date("2024-01-27"), linetype = "dashed", linewidth = 1.3) + 
+  xlim(as.Date("2023-08-01"), as.Date("2024-07-25")) +
+  ylim(0, 60) +
+  ylab("new hospitalizations") + theme_bw()
+
+```
+
+```{r, echo = FALSE, eval = T}
+unlink(temp_config)
+```
+
+------------------------------------------------------------------------
+
+## MetaRVM in action
+
+#### Use of checkpoints
+
+```{r, echo = F}
+# First run and checkpoint
+config_file <- "R/config_checkpoint.yaml"
+yml <- yaml::read_yaml(config_file)
+yml_tmp <- data.table::copy(yml)
+
+# Assign checkpoint directory
+checkpoint_dir <- tempdir()
+yml_tmp$simulation_config$checkpoint_dir <- checkpoint_dir
+
+# Create a temporary config
+temp_config <- tempfile(tmpdir = dirname(config_file), fileext = ".yaml")
+yaml::write_yaml(yml_tmp, temp_config)
+checkpoint_config <- normalizePath(temp_config)
+
+out <- metaRVM(checkpoint_config)
+
+checkpoint_files <- list.files(checkpoint_dir, 
+                               pattern = "^chk_.*\\.Rda$",
+                               full.names = TRUE)
+
+# Restore and run
+new_start_date <- "01/28/2024"
+yml_tmp <- data.table::copy(yml)
+yml_tmp$simulation_config$start_date <- new_start_date
+yml_tmp$simulation_config$restore_from <- checkpoint_files[1]
+yml_tmp$population_data$initialization <- NULL # ensure that we don't want to reinitialize the population from the initialization file
+
+temp_config_resume <- tempfile(tmpdir = dirname(config_file),fileext = ".yaml")
+yaml::write_yaml(yml_tmp, temp_config_resume)
+config_resume <- normalizePath(temp_config_resume)
+
+out_resume <- metaRVM(config_resume)
+
+out_H <- out$subset_data(disease_states = "n_IsympH")
+out_resume_H <- out_resume$subset_data(disease_states = "n_IsympH")
+out_H_all <- rbind(out_H$results, out_resume_H$results)
+
+library(ggplot2)
+ggplot(out_H_all, aes(x = date, y = value, color = age)) + 
+  geom_line() + 
+  geom_vline(xintercept = as.Date("2024-01-27"), linetype = "dashed", linewidth = 1.3) + 
+  ylim(0, 60) +
+  ylab("new hospitalizations") + theme_bw()
+
+```
+
+```{r, echo = FALSE, eval = T}
+unlink(temp_config)
+unlink(temp_config_resume)
+```
+
 ------------------------------------------------------------------------
 
 ## Tracking age-stratified influenza hospitalizations
@@ -467,6 +686,38 @@ out <- metaRVM("config_checkpoint.yaml")
 ## Tracking age-stratified influenza hospitalizations
 
 ![](figures/chicago_fit_1-30_90p.png){width="100%"}
+
+
+------------------------------------------------------------------------
+
+## Tracking age-stratified influenza hospitalizations
+
+::: {.columns .three-equal-panel}
+
+::: {.column}
+<center>
+Week 1 - 10
+![](figures/chicago_beta_1-10.png){width="100%"}
+</center>
+:::
+::: {.column}
+<center>
+Week 11 - 20
+![](figures/chicago_beta_11-20.png){width="100%"}
+</center>
+:::
+::: {.column}
+<center>
+Week 21 - 30
+![](figures/chicago_beta_21-30.png){width="100%"}
+</center>
+:::
+
+:::
+
+------------------------------------------------------------------------
+
+
 
 ## Summary
 

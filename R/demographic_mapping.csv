@@ -1,0 +1,4 @@
+"population_id", "age", "race", "zone"
+1, "0-17", "all", "all"
+2, "18-64", "all", "all"
+3, "65+", "all", "all"

@@ -1,0 +1,35 @@
+run_id: age-stratified
+population_data:
+  mapping: demographic_mapping.csv
+  initialization: population_init.csv
+  vaccination: vaccination.csv
+mixing_matrix:
+  weekday_day: m_wd_d.csv
+  weekday_night: m_wd_n.csv
+  weekend_day: m_we_d.csv
+  weekend_night: m_we_n.csv
+disease_params:
+  ts: 0.5
+  tv: 0.3
+  ve : 0.5
+  dv: 200
+  dp: 2.5
+  de: 3
+  da: 4
+  ds: 3
+  dh: 5
+  dr: 200
+  pea: 0.9
+  psr: 0.95
+  phr: 0.97
+sub_disease_params:
+    age:
+      0-17:
+        ts: 0.27
+      18-64:
+        ts: 0.3
+      65+:
+        ts: 0.75
+simulation_config:
+  start_date: 8/01/2023 # m/d/Y
+  length: 365
