@@ -57,10 +57,7 @@ execute:
 ::: {#cdph .column}
 ![](figures/CDPH-Logo.png){width="50%"}
 
--   Chol Mabil
--   Emile Jorgensen
--   Peter Ruestow
--   V. Eloesa McSorley
+![](figures/cdph-heads.png){width="90%"}
 :::
 :::
 
@@ -94,9 +91,9 @@ execute:
     -   Forecast likely futures
     -   Stress-test interventions
     -   Plan resource allocation (e.g., beds, staffing)
--   Our team at Argonne (led by Chick Macal and Jonathan Ozik) was one of the four modeling groups in the Illinois Governor’s COVID-19 Modeling Taskforce, providing critical insights to support decision making during the pandemic
+-   Our team at Argonne (led by Chick Macal and Jonathan Ozik) was one of the four modeling groups in the **Illinois Governor’s COVID-19 Modeling Taskforce**, providing critical insights to support decision making during the pandemic
     -   We produced scenario analyses (e.g., potential impacts of mitigation efforts) and projections (e.g., future hospital capacity issues).
-    -   Meetings were held twice weekly and analyses provided to the IDPH, CDPH, and Governor's office weekly
+    -   Meetings were held twice weekly and analyses provided to the **IDPH**, **CDPH**, and **Governor's office** weekly
     -   Primary concerns became: 
         1.   developing analyses that were of utility to stakeholders 
         2.   fast time-to-solution
@@ -198,12 +195,59 @@ execute:
 ------------------------------------------------------------------------
 
 ## MetaRVM - Disease model
-
+\
+\
+\
 <center>
-![](figures/model.png){width="90%"}
+
+```{r}
+library(DiagrammeR)
+dag <- "digraph {
+
+    graph[layout = dot,
+          fontsize = 15,
+          outputorder = edgesfirst,
+          ranksep = 1]
+
+    # Node numbers with labelled text
+    node [shape = box,
+    width = 2,
+    fontname = Helvetica]
+
+    S [label = 'Susceptible', style = 'filled', fillcolor = 'palegreen4']
+    E [label = 'Exposed', style = 'filled', fillcolor = 'yellow']
+    V [label = 'Vaccinated', style = 'filled', fillcolor = 'palegreen']
+    Ip [label = 'Infectious \n Presymptomatic', style = 'filled', fillcolor = 'indianred1']
+    Ia [label = 'Infectious \n Asymptomatic', style = 'filled', fillcolor = 'indianred3']
+    Is [label = 'Infectious \n Symptomatic', style = 'filled', fillcolor = 'indianred3']
+    H [label = 'Hospitalized', style = 'filled', fillcolor = 'indianred4', fontcolor = 'white']
+    R [label = 'Recoverd', style = 'filled', fillcolor = 'lightyellow']
+    D [label = 'Dead', style = 'filled', fillcolor = 'grey']
+
+    edge[color=darkgrey,arrowhead=vee]
+    S -> E ;
+    E -> Ia ;
+    Ia -> R ;
+    S -> V ;
+    V -> S ;
+    V -> E ;
+    E -> Ip ;
+    Ip -> Is ;
+    Is -> H ;
+    Is -> R;
+    H -> R;
+    H -> D;
+    R -> S ;
+
+    {rank = min; S; E; Ia; R}
+    {rank = same; Ip; Is; H}
+    {rank = max; V; D}
+
+    }"
+grViz(dag)
+```
+
 </center>
-<!-- JOcomment: Did you want to use the newer/cleaner image? The one in the website. -->
-<!-- AFcomment: DONE -->
 
 ------------------------------------------------------------------------
 
@@ -324,6 +368,8 @@ sources, including U.S. census data.
 - Agent activity schedules are derived from the American Time Use Survey
 and the Panel Study of Income dynamics.
 
+![](figures/ChiSIM_Synthpop.png){width="80%"}
+
 <!-- -   Statistically representative ***synthetic population*** of Chicago
     (2.7M people, 1.4M places, 13K activity schedules)
 
@@ -340,8 +386,8 @@ and the Panel Study of Income dynamics.
 
 ::: {.column}
 #### ChiSIM
-![](figures/ChiSIM_Synthpop.png){width="80%"}
-![](figures/chisim-chicago.gif){width="60%"}
+
+![](figures/chisim-chicago.gif){width="90%"}
 @macal2018chisim
 :::
 
@@ -355,6 +401,7 @@ and the Panel Study of Income dynamics.
 
 ::: {.column}
 #### Mobility --\> Mixing
+
 <!-- - **Agent mobility from real schedules**
   -  Adults: American Time Use Survey
   -  Children: Panel Study of Income Dynamics -->
@@ -366,11 +413,13 @@ and the Panel Study of Income dynamics.
   - Count the total number of contacts that occur at each location between and within subpopulations
   - Normalize the counts to arrive at per-capita value
 
+![](figures/chisim-mobility.gif){width="60%"}
 :::
 
 ::: {.column}
 #### ChiSIM
-![](figures/chisim-mobility.gif){width="100%"}
+![](figures/colocation.gif){width="100%"}
+Sample co-location network for randomly sampled individuals and all individuals within two degrees of separation.
 @macal2018chisim
 :::
 
@@ -383,7 +432,9 @@ and the Panel Study of Income dynamics.
 ::: {#daytime .column}
 #### **Daytime**
 
+<center>
 -   Location based mixing
+</center>
 
 ![](figures/day_contact.png){width="100%"}
 :::
@@ -391,7 +442,9 @@ and the Panel Study of Income dynamics.
 ::: {#nighttime .column}
 #### **Nighttime**
 
+<center>
 -   Household and community mixing
+</center>
 
 ![](figures/night_contact.png){width="100%"}
 :::
