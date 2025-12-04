@@ -3,6 +3,7 @@
 .RData
 .Ruserdata
 .DS_Store
+/docs/site_libs/*
 
 # Quarto cache
 *_cache/
