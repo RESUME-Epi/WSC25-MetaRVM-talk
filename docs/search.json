@@ -18,7 +18,7 @@
     "href": "metarvm-wsc.html#motivation",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Motivation",
-    "text": "Motivation\n\n\nPublic health decision makers increasingly rely on epidemiological models to:\n\nForecast likely futures\nStress-test interventions\nPlan resource allocation (e.g., beds, staffing)"
+    "text": "Motivation\n\n\nPublic health decision makers increasingly rely on epidemiological models to:\n\nForecast likely futures\nStress-test interventions\nPlan resource allocation (e.g., beds, staffing)\n\nOur team at Argonne (led by Chick Macal and Jonathan Ozik) was one of the four modeling groups in the Illinois Governor’s COVID-19 Modeling Taskforce, providing critical insights to support decision making during the pandemic\n\nWe produced scenario analyses (e.g., potential impacts of mitigation efforts) and projections (e.g., future hospital capacity issues).\nMeetings were held twice weekly and analyses provided to the IDPH, CDPH, and Governor’s office weekly\nPrimary concerns became:\n\ndeveloping analyses that were of utility to stakeholders\nfast time-to-solution"
   },
   {
     "objectID": "metarvm-wsc.html#motivation-1",
