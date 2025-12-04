@@ -18,7 +18,7 @@
     "href": "metarvm-wsc.html#motivation",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Motivation",
-    "text": "Motivation\n\n\nPublic health decision makers increasingly rely on epidemiological models to:\n\nForecast likely futures\nStress-test interventions\nPlan resource allocation (e.g., beds, staffing)\n\nOur team at Argonne (led by Chick Macal and Jonathan Ozik) was one of the four modeling groups in the Illinois Governor’s COVID-19 Modeling Taskforce, providing critical insights to support decision making during the pandemic\n\nWe produced scenario analyses (e.g., potential impacts of mitigation efforts) and projections (e.g., future hospital capacity issues).\nMeetings were held twice weekly and analyses provided to the IDPH, CDPH, and Governor’s office weekly\nPrimary concerns became:\n\ndeveloping analyses that were of utility to stakeholders\nfast time-to-solution"
+    "text": "Motivation\n\n\n\n\nPublic health decision makers increasingly rely on epidemiological models to:\n\nForecast likely futures\nStress-test interventions\nPlan resource allocation (e.g., beds, staffing)\n\nOur team at Argonne (led by Chick Macal and Jonathan Ozik) was one of the four modeling groups in the Illinois Governor’s COVID-19 Modeling Taskforce, providing critical insights to support decision making during the pandemic\n\nWe produced scenario analyses (e.g., potential impacts of mitigation efforts) and projections (e.g., future hospital capacity issues).\nMeetings were held twice weekly and analyses provided to the IDPH, CDPH, and Governor’s office weekly\nPrimary concerns became:\n\ndeveloping analyses that were of utility to stakeholders\nfast time-to-solution"
   },
   {
     "objectID": "metarvm-wsc.html#motivation-1",
@@ -74,7 +74,7 @@
     "href": "metarvm-wsc.html#mixing-and-force-of-infection-2",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Mixing and force of infection",
-    "text": "Mixing and force of infection\n\nForce of infection (Susceptible [S] vs Vaccinated [V])\n\n\\[\n\\lambda_{s,t}^{(j)} = \\beta_s \\frac{I_{t,\\text{eff}}^{(j)}}{\\mathrm{MP}_{t,\\text{eff}}^{(j)}},\n\\qquad\n\\lambda_{v,t}^{(j)} = \\beta_v \\frac{I_{t,\\text{eff}}^{(j)}}{\\mathrm{MP}_{t,\\text{eff}}^{(j)}}.\n\\]\n\nSusceptible [S] → Exposed [E] transition in stratum (j)\n\n\n\n\n\n\n\nImportant\n\n\n\\[\\text{probability of being infected:} \\quad p_{\\mathrm{SE}}^{(j)} = 1 - \\exp\\!\\big(-\\lambda_{s,t}^{(j)} \\,\\Delta t\\big) \\\\\n\\text{New infections:} \\quad \\Delta E_t^{(j)} = p_{\\mathrm{SE}}^{(j)}\\,S_t^{(j)}\\]"
+    "text": "Mixing and force of infection\n\nForce of infection (Susceptible [S] vs Vaccinated [V])\n\n\\[\n\\lambda_{s,t}^{(j)} = \\beta_s \\frac{I_{t,\\text{eff}}^{(j)}}{\\mathrm{MP}_{t,\\text{eff}}^{(j)}},\n\\qquad\n\\lambda_{v,t}^{(j)} = \\beta_v \\frac{I_{t,\\text{eff}}^{(j)}}{\\mathrm{MP}_{t,\\text{eff}}^{(j)}}.\n\\]\n\nSusceptible [S] → Exposed [E] transition in stratum (j)\n\n\\[\n\\text{probability of being infected:} \\quad p_{\\mathrm{SE}}^{(j)} = 1 - \\exp\\!\\big(-\\lambda_{s,t}^{(j)} \\,\\Delta t\\big) \\\\\n\\text{New infections:} \\quad \\Delta E_t^{(j)} = p_{\\mathrm{SE}}^{(j)}\\,S_t^{(j)}\n\\]"
   },
   {
     "objectID": "metarvm-wsc.html#age-stratified-model-illustration",
@@ -200,6 +200,13 @@
     "href": "metarvm-wsc.html#funding-acknowledgments",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Funding acknowledgments",
-    "text": "Funding acknowledgments\n\nChicago Department of Public Health\nThis material is based upon work supported by the U.S. Department of Energy, Office of Science, under contract DE-AC02-06CH11357.\n\nReferences\n\n\nFadikar, Arindam, Nicholson Collier, Abby Stevens, Jonathan Ozik, Mickaël Binois, and Kok Ben Toh. 2023. “Trajectory-Oriented Optimization of Stochastic Epidemiological Models.” In 2023 Winter Simulation Conference (WSC), 1244–55. https://doi.org/10.1109/WSC60868.2023.10408258.\n\n\nMacal, Charles M, Nicholson T Collier, Jonathan Ozik, Eric R Tatara, and John T Murphy. 2018. “Chisim: An Agent-Based Simulation Model of Social Interactions in a Large Urban Area.” In 2018 Winter Simulation Conference (WSC), 810–20. IEEE. https://doi.org/10.1109/WSC.2018.8632409."
+    "text": "Funding acknowledgments\n\nChicago Department of Public Health\nThis material is based upon work supported by the U.S. Department of Energy, Office of Science, under contract DE-AC02-06CH11357."
+  },
+  {
+    "objectID": "metarvm-wsc.html#references",
+    "href": "metarvm-wsc.html#references",
+    "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
+    "section": "References",
+    "text": "References\n\n\nFadikar, Arindam, Nicholson Collier, Abby Stevens, Jonathan Ozik, Mickaël Binois, and Kok Ben Toh. 2023. “Trajectory-Oriented Optimization of Stochastic Epidemiological Models.” In 2023 Winter Simulation Conference (WSC), 1244–55. https://doi.org/10.1109/WSC60868.2023.10408258.\n\n\nMacal, Charles M, Nicholson T Collier, Jonathan Ozik, Eric R Tatara, and John T Murphy. 2018. “Chisim: An Agent-Based Simulation Model of Social Interactions in a Large Urban Area.” In 2018 Winter Simulation Conference (WSC), 810–20. IEEE. https://doi.org/10.1109/WSC.2018.8632409."
   }
 ]

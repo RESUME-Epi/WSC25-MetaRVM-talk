@@ -70,10 +70,8 @@ section[data-state="title-slide"] h1 {
   color: #0e3d4d !important;
 }
 
-/* Reduce overall slide top padding */
-.reveal .slides section {
-  padding-top: 0px !important;
-}
+
+
 
 /* Reduce title bar vertical space */
 .reveal section h2 {
@@ -320,3 +318,12 @@ section[data-state="title-slide"] h1 {
   z-index: 2;
 }
 
+/* Give the References slide a bit more top room */
+.reveal section#references {
+  padding-top: 24px !important;   /* adjust up/down as needed */
+}
+
+/* And/or add some margin above the References title bar */
+.reveal section#references h2 {
+  margin-top: 8px !important;
+}

@@ -15,6 +15,7 @@ title-slide-attributes:
 echo: true
 format:
   revealjs:
+    margin: 0.15
     theme: simple
     slide-number: true
     incremental: false
@@ -87,6 +88,8 @@ execute:
 
 ## Motivation
 <!-- AFcomment: JO to work on -->
+::: {.columns .two-wide-narrow-panel}
+::: column
 -   Public health decision makers increasingly rely on **epidemiological models** to:
     -   Forecast likely futures
     -   Stress-test interventions
@@ -97,7 +100,13 @@ execute:
     -   Primary concerns became: 
         1.   developing analyses that were of utility to stakeholders 
         2.   fast time-to-solution
+:::
 
+::: column
+![](figures/covid_icu_bed.png){width="110%"}
+:::
+
+:::
 ------------------------------------------------------------------------
 
 ## Motivation
@@ -176,7 +185,7 @@ execute:
 :::
 
 ::: {.column .callout}
-![](figures/metarvm-screenshot.png){width="120%"}
+![](figures/metarvm-screenshot.png){width="100%"}
 :::
 :::
 
@@ -190,7 +199,9 @@ execute:
 
 ## MetaRVM - Disease model
 
-![](figures/model.png){width="100%"}
+<center>
+![](figures/model.png){width="90%"}
+</center>
 <!-- JOcomment: Did you want to use the newer/cleaner image? The one in the website. -->
 <!-- AFcomment: DONE -->
 
@@ -252,10 +263,10 @@ $$
 
 - **Susceptible [S] → Exposed [E] transition in stratum (j)**
 
-::: {.callout-important}
-$$\text{probability of being infected:} \quad p_{\mathrm{SE}}^{(j)} = 1 - \exp\!\big(-\lambda_{s,t}^{(j)} \,\Delta t\big) \\
-\text{New infections:} \quad \Delta E_t^{(j)} = p_{\mathrm{SE}}^{(j)}\,S_t^{(j)}$$
-:::
+$$
+\text{probability of being infected:} \quad p_{\mathrm{SE}}^{(j)} = 1 - \exp\!\big(-\lambda_{s,t}^{(j)} \,\Delta t\big) \\
+\text{New infections:} \quad \Delta E_t^{(j)} = p_{\mathrm{SE}}^{(j)}\,S_t^{(j)}
+$$
 
 ------------------------------------------------------------------------
 
@@ -771,9 +782,11 @@ Figure shows the time-varying estimates of the transmission parameters ($ts$) fo
 :::
 
 :::{.column}
-![](figures/qrcode.png){width="100%"}
+![](figures/qrcode.png){width="80%"}
 :::
+
 :::
+
 ------------------------------------------------------------------------
 
 ## Funding acknowledgments
@@ -781,7 +794,7 @@ Figure shows the time-varying estimates of the transmission parameters ($ts$) fo
 - Chicago Department of Public Health
 - This material is based upon work supported by the U.S. Department of Energy, Office of Science, under contract DE-AC02-06CH11357.
 
-### References
+## References
 
 ::: {#refs}
 :::
