@@ -91,6 +91,12 @@ execute:
     -   Forecast likely futures
     -   Stress-test interventions
     -   Plan resource allocation (e.g., beds, staffing)
+-   Our team at Argonne (led by Chick Macal and Jonathan Ozik) was one of the four modeling groups in the Illinois Governor’s COVID-19 Modeling Taskforce, providing critical insights to support decision making during the pandemic
+    -   We produced scenario analyses (e.g., potential impacts of mitigation efforts) and projections (e.g., future hospital capacity issues).
+    -   Meetings were held twice weekly and analyses provided to the IDPH, CDPH, and Governor's office weekly
+    -   Primary concerns became: 
+        1.   developing analyses that were of utility to stakeholders 
+        2.   fast time-to-solution
 
 ------------------------------------------------------------------------
 
