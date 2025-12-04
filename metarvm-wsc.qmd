@@ -5,6 +5,7 @@ author: "Presenter: Arindam Fadikar"
 affiliation: "Decision and Infrastructure Sciences"
 institute: "Argonne National Laboratory"
 date: "December 8, 2025"
+date-format: long
 conference: "Winter Simulation Conference 2025"
 bibliography: refs.bib
 title-slide-attributes:
@@ -41,7 +42,7 @@ execute:
 ::: {#argonne .column}
 ![](figures/ANL_RGB-01.png){width="50%"}
 
-![](figures/anl-heads.png){width="100%"}
+![](figures/anl-heads.png){width="90%"}
 
 <!-- -   Arindam Fadikar\
 -   Abby Stevens
@@ -444,6 +445,18 @@ options(odin.verbose = FALSE)
 out <- metaRVM("R/config.yaml")
 print(out)
 ```
+------------------------------------------------------------------------
+
+## MetaRVM in action
+
+#### Run simulation
+
+```{r, echo = TRUE}
+library(MetaRVM)
+options(odin.verbose = FALSE)
+out <- metaRVM("R/config.yaml")
+print(out)
+```
 
 ```{r, echo = TRUE}
 out$results
@@ -460,7 +473,8 @@ out_H <- out$subset_data(disease_states = "n_IsympH")
 
 library(ggplot2)
 ggplot(out_H$results, aes(x = date, y = value, color = age)) + 
-  geom_line() + theme_bw()
+  geom_line() + 
+  ylab("new hospitalizations") + theme_bw()
 ```
 ------------------------------------------------------------------------
 
@@ -669,7 +683,7 @@ unlink(temp_config_resume)
 
 ------------------------------------------------------------------------
 
-## Tracking age-stratified influenza hospitalizations
+## Tracking age-stratified influenza hospitalizations in Chicago
 
 - **Goal**:
   - Calibrate MetaRVM to weekly hospitalizations
@@ -678,14 +692,27 @@ unlink(temp_config_resume)
       - $tv$: transmissibility for vaccinated population 
       - $pea$: proportion of asymptomatic cases
       - $psh$: proportion of hospitalized among symptomatic cases
+    
+------------------------------------------------------------------------
+
+## Tracking age-stratified influenza hospitalizations in Chicago
+
 - **Approach**:
   - Apply ***Bayesian Optimization*** to find relevant trajectories matching the observed data (@fadikar2023TOO)
-    
+
+:::{.callout}
+<center>
+![](figures/TOO_screenshot.png){width="60%"}
+</center>
+:::
+
 ------------------------------------------------------------------------
 
 ## Tracking age-stratified influenza hospitalizations
 
 ![](figures/chicago_fit_1-30_90p.png){width="100%"}
+
+Figure shows age-stratified hospitalization trajectories for the 2023–24 season that align with observed hospitalization counts (in black dots). Blue bands show the model-generated trajectories, and vertical dashed lines indicate the calibration windows where checkpoints are induced.
 
 
 ------------------------------------------------------------------------
@@ -715,43 +742,41 @@ Week 21 - 30
 
 :::
 
-------------------------------------------------------------------------
-
-
-
-## Summary
-
--   MetaRVM provides a **use-inspired metapopulation modeling framework** for:
-    -   Detailed, stratified tracking of health outcomes
-    -   Infectious disease spread across multiple interacting subpopulations
--   Key contributions:
-    -   Uses synthetic population-derived mixing matrices
-    -   Balances realism with computational efficiency
-    -   Delivered as an **open-source R package** with a **Shiny front end**
--   Case study:
-    -   Demonstrated on influenza-related hospitalizations in Chicago
-    -   Supports prospective surveillance and scenario analysis
+Figure shows the time-varying estimates of the transmission parameters ($ts$) for each age group, and for each 10-week calibration period. Diagonal panels display marginal posterior distributions for each age group, and off-diagonal panels show joint posterior contours.
 
 ------------------------------------------------------------------------
 
-## Current and Future Work
+
+## Closing thoughts
+
+- Enables tracking stratified health outcomes.
+- Flexible in defining strata, time-strata varying model parameters.
+- Available as an ***R-package***.
+
+::: {.columns .two-wide-narrow-panel}
+
+::: {.column}
+### Current and future work
 
 -   Extend MetaRVM to other respiratory diseases of public health concern (COVID, RSV) and additional demographic characteristics (geographic, race/ethnicity)
 -   Apply checkpoint-aware Bayesian optimization 
 -   Utilize moving windows for improved trend detection
 -   Expand nowcasting capabilities to forecasting and scenario analyses
+:::
 
-
+:::{.column}
+![](figures/qrcode.png){width="100%"}
+:::
+:::
 ------------------------------------------------------------------------
 
 ## Funding acknowledgments
 
--   Chicago Department of Public Health
+- Chicago Department of Public Health
+- This material is based upon work supported by the U.S. Department of Energy, Office of Science, under contract DE-AC02-06CH11357.
 
-
-------------------------------------------------------------------------
-
-## References
+### References
 
 ::: {#refs}
 :::
+
