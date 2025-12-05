@@ -927,9 +927,10 @@ Figure shows the time-varying estimates of the transmission parameters ($ts$) fo
 
 ------------------------------------------------------------------------
 
-## Funding acknowledgments
+## Acknowledgments
 
 - Chicago Department of Public Health
+- Argonne Leadership Computing Facility
 - This material is based upon work supported by the U.S. Department of Energy, Office of Science, under contract DE-AC02-06CH11357.
 
 ## References
