@@ -1,6 +1,7 @@
 library(igraph)
 library(ggraph)
 library(dplyr)
+library(ggpubr)
 
 ## --- 1. Contact matrix ------------------------------------------------------
 
@@ -140,3 +141,39 @@ m_we_n <- matrix(
   nrow = 3, byrow = TRUE,
   dimnames = list(from = age_groups, to = age_groups)
 )
+
+common_theme <- theme(axis.text=element_text(size=13),
+                      title = element_text(size = 15),
+                      strip.text = element_text(size = 15, face = "bold"),
+                      legend.text = element_text(size = 10))
+
+
+plot_mm <- function(m, labels, mtype, ggtheme){
+  df <- expand.grid(labels, labels)
+  df$value <- as.numeric(t(m))
+  
+  df$rev_Var2 <- factor(df$Var2, levels = rev(levels(df$Var2)))
+  
+  g <- 
+  ggplot(df, aes(Var1, rev_Var2, fill= value)) + 
+    geom_tile() +
+    # scale_y_reverse() +  # <--- This flips the y-axis
+  coord_fixed() + 
+    geom_text(aes(label=round(value, 3)), color = "white", size = 5) + 
+    xlab("") + ylab("") + 
+   labs(title = mtype) +
+    theme_bw() + ggtheme + theme(legend.position = "None")
+
+  return(g)
+}
+
+
+
+g1 <- plot_mm(m_wd_d, c("0-17", "18-64", "65 and above"), "Weekday day", common_theme)
+g2 <- plot_mm(m_wd_n, c("0-17", "18-64", "65 and above"), "Weekday night", common_theme)
+g3 <- plot_mm(m_we_d, c("0-17", "18-64", "65 and above"), "Weekend day", common_theme)
+g4 <- plot_mm(m_we_n, c("0-17", "18-64", "65 and above"), "Weekend night", common_theme)
+
+gg <- ggarrange(g1, g2, g3, g4, ncol = 2, nrow = 2)
+
+ggsave("figures/m_all.png", width = 8, height = 8, dpi = 200)

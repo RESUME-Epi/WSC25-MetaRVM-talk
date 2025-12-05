@@ -342,8 +342,7 @@ $$
 
 - Time varying mixing 
 
-![](figures/day_mixing.png){width="100%"}
-![](figures/day_mixing.png){width="100%"}  <!-- or whatever your second figure is -->
+![](figures/m_all.png){width="100%"}
 :::
 
 :::
