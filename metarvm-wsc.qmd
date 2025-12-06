@@ -55,7 +55,7 @@ execute:
 :::
 
 ::: {#cdph .column}
-![](figures/CDPH-Logo.png){width="50%"}
+![](figures/CDPH-Logo.png){width="44%"}
 
 ![](figures/cdph-heads.png){width="90%"}
 :::
@@ -266,7 +266,7 @@ grViz(dag)
 ![](figures/metafig.png){width="100%"}
 
 -   For each stratum, the **force of infection** depends on:
-    -   Mixing rates between the stratum $i$ and $j$ $M = (m_{ij}), \quad, i, j \in \mathcal{J}$ (set of all strata)
+    -   Mixing rates between the stratum $i$ and $j$ $M = (m_{ij}), \quad i, j \in \mathcal{J}$ (set of all strata)
     -   Prevalence of infectious individuals in $j$th stratum at time $t$, $I_t^{(j)}$, where $j \in \mathcal{J}$
 
 

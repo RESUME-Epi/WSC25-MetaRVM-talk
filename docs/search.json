@@ -60,7 +60,7 @@
     "href": "metarvm-wsc.html#mixing-and-force-of-infection",
     "title": "Developing and deploying a use-inspired metapopulation framework for stratified health outcomes",
     "section": "Mixing and force of infection",
-    "text": "Mixing and force of infection\n\n\nFor each stratum, the force of infection depends on:\n\nMixing rates between the stratum \\(i\\) and \\(j\\) \\(M = (m_{ij}), \\quad, i, j \\in \\mathcal{J}\\) (set of all strata)\nPrevalence of infectious individuals in \\(j\\)th stratum at time \\(t\\), \\(I_t^{(j)}\\), where \\(j \\in \\mathcal{J}\\)"
+    "text": "Mixing and force of infection\n\n\nFor each stratum, the force of infection depends on:\n\nMixing rates between the stratum \\(i\\) and \\(j\\) \\(M = (m_{ij}), \\quad i, j \\in \\mathcal{J}\\) (set of all strata)\nPrevalence of infectious individuals in \\(j\\)th stratum at time \\(t\\), \\(I_t^{(j)}\\), where \\(j \\in \\mathcal{J}\\)"
   },
   {
     "objectID": "metarvm-wsc.html#mixing-and-force-of-infection-1",
